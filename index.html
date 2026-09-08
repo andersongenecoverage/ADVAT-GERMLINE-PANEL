@@ -114,8 +114,8 @@
       </div>
     </header>
 
-    <div class="grid lg:grid-cols-[280px_360px_minmax(0,1fr)]">
-      <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-80 -translate-x-full overflow-y-auto border-r border-cyan-100 bg-white p-4 pt-20 transition lg:sticky lg:top-16 lg:z-20 lg:h-[calc(100vh-4rem)] lg:w-auto lg:translate-x-0 lg:pt-4 dark:border-slate-800 dark:bg-slate-950">
+    <div class="grid lg:grid-cols-[280px_360px_minmax(0,1fr)] lg:gap-5 lg:p-4">
+      <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-80 -translate-x-full overflow-y-auto border-r border-cyan-100 bg-white p-4 pt-20 shadow-2xl transition lg:sticky lg:top-20 lg:z-20 lg:h-[calc(100vh-6rem)] lg:w-auto lg:translate-x-0 lg:rounded-2xl lg:border lg:pt-4 lg:shadow-soft dark:border-slate-800 dark:bg-slate-950">
         <div class="mb-4 flex items-center justify-between">
           <div>
             <p class="text-xs font-bold uppercase tracking-[.18em] text-cyan-700 dark:text-cyan-300">Organs</p>
@@ -126,7 +126,7 @@
         <nav id="organList" class="space-y-1.5" aria-label="Organs"></nav>
       </aside>
 
-      <section class="border-r border-cyan-100 bg-white/70 p-4 lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)] lg:overflow-y-auto dark:border-slate-800 dark:bg-slate-950/55">
+      <section class="border-r border-cyan-100 bg-white/70 p-4 lg:sticky lg:top-20 lg:h-[calc(100vh-6rem)] lg:overflow-y-auto lg:rounded-2xl lg:border lg:shadow-soft dark:border-slate-800 dark:bg-slate-950/55">
         <div id="selectedOrganCard" class="animate-in mb-4 rounded-2xl border border-cyan-100 bg-gradient-to-br from-cyan-50 to-teal-50 p-4 shadow-soft dark:border-slate-800 dark:from-slate-900 dark:to-slate-900">
           <p class="text-xs font-bold uppercase tracking-[.18em] text-cyan-700 dark:text-cyan-300">Selected Organ</p>
           <h2 id="selectedOrganTitle" class="mt-1 text-xl font-extrabold tracking-tight"></h2>
