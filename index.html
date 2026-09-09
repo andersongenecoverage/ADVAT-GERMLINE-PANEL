@@ -6,14 +6,17 @@
   <title>Medical Gene Panel Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
-          fontFamily: { sans: ['Plus Jakarta Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace']
+          },
           colors: {
             clinic: {
               50: '#ecfeff', 100: '#cffafe', 500: '#06b6d4', 600: '#0891b2', 700: '#0e7490', 900: '#164e63'
@@ -41,13 +44,22 @@
     }
     .gene-chip:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid #0891b2; outline-offset: 2px; }
     .table-wrap table { width: 100%; border-collapse: separate; border-spacing: 0; }
-    .table-wrap th { background: #f1f5f9; color: #334155; font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; }
-    .dark .table-wrap th { background: #111a2e; color: #94a3b8; }
-    .table-wrap th, .table-wrap td { border-bottom: 1px solid #e2e8f0; padding: .8rem 1rem; vertical-align: top; }
+    .table-wrap th {
+      background: color-mix(in srgb, var(--accent, #0891b2) 10%, #f8fafc);
+      color: var(--accent, #0e7490);
+      font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+    }
+    .dark .table-wrap th { background: color-mix(in srgb, var(--accent, #0891b2) 18%, #0b1120); }
+    .table-wrap th, .table-wrap td { border-bottom: 1px solid #e2e8f0; padding: .95rem 1.1rem; vertical-align: top; }
     .dark .table-wrap th, .dark .table-wrap td { border-bottom-color: #1e293b; }
-    .table-wrap tbody tr { transition: background-color .15s ease; }
-    .table-wrap tr:hover td { background: #f8fafc; }
-    .dark .table-wrap tr:hover td { background: #0f172a; }
+    .table-wrap th:first-child { border-top-left-radius: .75rem; }
+    .table-wrap th:last-child { border-top-right-radius: .75rem; }
+    .table-wrap tbody tr { transition: background-color .15s ease; border-left: 3px solid transparent; }
+    .table-wrap tr:hover td { background: color-mix(in srgb, var(--accent, #0891b2) 5%, white); }
+    .dark .table-wrap tr:hover td { background: color-mix(in srgb, var(--accent, #0891b2) 10%, #0f172a); }
+    .table-wrap tbody tr:hover { border-left-color: var(--accent, #0891b2); }
+    .table-wrap .gene-cell { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: .82rem; letter-spacing: -.01em; line-height: 1.65; color: #334155; }
+    .dark .table-wrap .gene-cell { color: #cbd5e1; }
     @media (max-width: 760px) {
       .responsive-table thead { display: none; }
       .responsive-table, .responsive-table tbody, .responsive-table tr, .responsive-table td { display: block; width: 100%; }
@@ -107,6 +119,12 @@
 
     .accent-link { color: var(--accent, #0e7490); transition: opacity .15s ease; }
     .accent-link:hover { opacity: .7; }
+
+    .gene-panel-box { border-color: color-mix(in srgb, var(--accent, #0891b2) 20%, #e2e8f0); background: color-mix(in srgb, var(--accent, #0891b2) 4%, #f8fafc); }
+    .dark .gene-panel-box { border-color: color-mix(in srgb, var(--accent, #0891b2) 30%, #1e293b); background: color-mix(in srgb, var(--accent, #0891b2) 10%, #0b1120); }
+
+    .gene-chip-accent { border-color: color-mix(in srgb, var(--accent, #0891b2) 28%, #e2e8f0); }
+    .dark .gene-chip-accent { border-color: color-mix(in srgb, var(--accent, #0891b2) 40%, #334155); }
 
     .icon-btn.is-primary { background: var(--accent, #0891b2); color: #fff; }
     .icon-btn.is-primary:hover { filter: brightness(0.92); }
@@ -238,7 +256,7 @@
               <h3 class="eyebrow text-sm font-bold uppercase tracking-[.16em] text-slate-500 dark:text-slate-400">Gene List</h3>
               <span id="copyNotice" class="text-sm font-semibold text-teal-600 opacity-0 transition dark:text-teal-300">Copied!</span>
             </div>
-            <div id="geneChips" class="flex max-h-80 flex-wrap gap-2 overflow-y-auto rounded-xl border border-cyan-100 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-950"></div>
+            <div id="geneChips" class="gene-panel-box flex max-h-80 flex-wrap gap-2 overflow-y-auto rounded-xl border p-3"></div>
           </div>
 
           <div class="mt-6 table-wrap overflow-hidden rounded-xl border border-cyan-100 dark:border-slate-800">
@@ -5399,8 +5417,8 @@
     function rowHtml(d, clickable) {
       const genes = clickable
         ? geneList(d.genes).map(g => `<button class="gene-chip mr-1 mb-1 rounded-full bg-cyan-50 px-2 py-1 text-xs font-bold text-cyan-800 hover:bg-cyan-100 dark:bg-cyan-500/15 dark:text-cyan-100" data-copy="${escapeHtml(g)}" title="Copy ${escapeHtml(g)}">${escapeHtml(g)}</button>`).join('')
-        : escapeHtml(d.genes);
-      return `<tr><td data-label="Panel" class="font-semibold text-slate-900 dark:text-slate-100">${escapeHtml(d.name)}</td><td data-label="Genes">${genes}</td><td data-label="Method" class="text-slate-600 dark:text-slate-300">${escapeHtml(d.method || '-')}</td></tr>`;
+        : `<span class="gene-cell">${escapeHtml(geneList(d.genes).join(', '))}</span>`;
+      return `<tr><td data-label="Panel" class="font-bold text-slate-900 dark:text-slate-100">${escapeHtml(d.name)}</td><td data-label="Genes">${genes}</td><td data-label="Method"><span class="whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-bold" style="background:color-mix(in srgb, var(--accent, #0891b2) 12%, white); color:var(--accent, #0e7490)">${escapeHtml(d.method || '-')}</span></td></tr>`;
     }
 
     function renderDiseaseView() {
@@ -5415,7 +5433,7 @@
       $('statDiseases').textContent = DATA.reduce((s, o) => s + o.diseases.length, 0);
       $('statGenes').textContent = genes.length;
       $('geneChips').innerHTML = genes.map(g =>
-        `<button class="gene-chip rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200" title="Copy ${escapeHtml(g)}" data-copy="${escapeHtml(g)}">${escapeHtml(g)}</button>`
+        `<button class="gene-chip gene-chip-accent rounded-full border bg-white px-3 py-1.5 font-mono text-sm font-bold text-slate-700 dark:bg-slate-900 dark:text-slate-200" title="Copy ${escapeHtml(g)}" data-copy="${escapeHtml(g)}">${escapeHtml(g)}</button>`
       ).join('') || '<p class="text-sm text-slate-500">No genes listed.</p>';
       $('detailTable').innerHTML = rowHtml(disease, false);
 
