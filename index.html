@@ -5302,10 +5302,10 @@
 
       const groups = filteredOrgans();
       $('organGrid').innerHTML = groups.map(o => `
-        <button type="button" class="panel-card rounded-xl border border-slate-200 bg-white p-5 text-left hover:border-cyan-300 dark:border-slate-800 dark:bg-slate-900" data-organ="${escapeHtml(o.id)}">
-          <span class="flex h-11 w-11 items-center justify-center rounded-lg bg-cyan-50 text-xl dark:bg-slate-800">${organIcon(o.id)}</span>
+        <button type="button" class="panel-card flex h-full flex-col rounded-xl border border-slate-200 bg-white p-5 text-left hover:border-cyan-300 dark:border-slate-800 dark:bg-slate-900" data-organ="${escapeHtml(o.id)}">
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-xl dark:bg-slate-800">${organIcon(o.id)}</span>
           <h3 class="mt-3 font-bold text-slate-900 dark:text-white">${escapeHtml(o.title)}</h3>
-          <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">${o.diseases.length} panels</p>
+          <p class="mt-auto pt-1 text-xs text-slate-500 dark:text-slate-400">${o.diseases.length} panels</p>
         </button>`).join('') || `<p class="col-span-full rounded-xl border border-dashed border-slate-300 p-6 text-center text-sm text-slate-500 dark:border-slate-700">No organs match your search.</p>`;
       document.querySelectorAll('#organGrid [data-organ]').forEach(btn => {
         btn.addEventListener('click', () => goOrgan(btn.dataset.organ));
@@ -5324,9 +5324,9 @@
       $('organViewCount').textContent = `${diseases.length} of ${organ.diseases.length} panels`;
       $('diseaseGrid').innerHTML = diseases.map(d => {
         const gCount = geneList(d.genes).length;
-        return `<button type="button" class="panel-card rounded-xl border border-slate-200 bg-white p-4 text-left hover:border-cyan-300 dark:border-slate-800 dark:bg-slate-900" data-disease="${escapeHtml(d.id)}">
+        return `<button type="button" class="panel-card flex h-full flex-col rounded-xl border border-slate-200 bg-white p-4 text-left hover:border-cyan-300 dark:border-slate-800 dark:bg-slate-900" data-disease="${escapeHtml(d.id)}">
           <span class="block text-sm font-bold leading-snug text-slate-900 dark:text-white">${escapeHtml(d.name)}</span>
-          <span class="mt-2 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400"><span class="rounded-full bg-cyan-100 px-2 py-0.5 font-bold text-cyan-800 dark:bg-cyan-500/15 dark:text-cyan-200">${gCount} genes</span>${escapeHtml(d.method || 'Method not listed')}</span>
+          <span class="mt-auto flex items-center gap-2 pt-2 text-xs text-slate-500 dark:text-slate-400"><span class="rounded-full bg-cyan-100 px-2 py-0.5 font-bold text-cyan-800 dark:bg-cyan-500/15 dark:text-cyan-200">${gCount} genes</span>${escapeHtml(d.method || 'Method not listed')}</span>
         </button>`;
       }).join('') || `<p class="col-span-full rounded-xl border border-dashed border-slate-300 p-6 text-center text-sm text-slate-500 dark:border-slate-700">No panels match this search.</p>`;
       document.querySelectorAll('#diseaseGrid [data-disease]').forEach(btn => {
