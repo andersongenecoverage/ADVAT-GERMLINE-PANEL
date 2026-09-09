@@ -167,7 +167,7 @@
       <main class="min-w-0 p-4 sm:p-6 lg:p-8">
         <nav class="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-500 dark:text-slate-400" aria-label="Breadcrumb">
           <button class="font-semibold text-cyan-700 hover:text-cyan-900 dark:text-cyan-300" data-reset>Dashboard</button>
-          <span>/</span><span id="crumbOrgan"></span><span>/</span><span id="crumbDisease" class="font-semibold text-slate-800 dark:text-slate-100"></span>
+          <span>/</span><span id="crumbOrgan" class="font-semibold text-slate-800 dark:text-slate-100"></span>
         </nav>
 
         <section id="fertilityPanelsSection" class="animate-in mb-6 rounded-2xl border border-cyan-100 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-slate-900">
@@ -5403,7 +5403,6 @@
       if (!organ || !disease) return;
       const genes = geneList(disease.genes);
       $('crumbOrgan').textContent = organ.title;
-      $('crumbDisease').textContent = disease.name;
       $('detailTitle').textContent = disease.name;
       $('detailMethod').textContent = `Method: ${disease.method || 'Not listed'} - Source: ${organ.source}`;
       $('statOrgans').textContent = DATA.length;
