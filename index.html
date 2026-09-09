@@ -127,11 +127,13 @@
       </aside>
 
       <section id="panelsColumn" class="border-r border-cyan-100 bg-white/70 p-3 lg:sticky lg:top-20 lg:h-[calc(100vh-6rem)] lg:overflow-y-auto lg:rounded-2xl lg:border lg:shadow-soft dark:border-slate-800 dark:bg-slate-950/55">
-        <button id="togglePanelsColumn" type="button" class="icon-btn flex w-full items-center gap-2 rounded-xl border border-cyan-100 bg-white px-3 py-2.5 text-left hover:border-cyan-300 hover:bg-cyan-50 dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800" aria-expanded="true" aria-controls="panelsColumnBody">
+        <button id="togglePanelsColumn" type="button" class="icon-btn flex items-center gap-2 rounded-xl border border-cyan-100 bg-white px-3 py-2.5 text-left hover:border-cyan-300 hover:bg-cyan-50 dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800" aria-expanded="true" aria-controls="panelsColumnBody" title="Panels">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 shrink-0 text-cyan-700 dark:text-cyan-300"><rect x="3.5" y="4.5" width="17" height="4" rx="1"/><rect x="3.5" y="10.5" width="17" height="4" rx="1"/><rect x="3.5" y="16.5" width="17" height="4" rx="1"/></svg>
-          <span class="whitespace-nowrap text-xs font-bold uppercase tracking-[.16em] text-cyan-700 dark:text-cyan-300">Panels</span>
-          <span id="diseaseCount" class="whitespace-nowrap rounded-full bg-cyan-100 px-2 py-0.5 text-[11px] font-bold text-cyan-800 dark:bg-cyan-500/15 dark:text-cyan-200"></span>
-          <svg id="panelsToggleChevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ml-auto h-3.5 w-3.5 shrink-0 text-cyan-700 transition-transform duration-200 dark:text-cyan-300"><path d="m6 9 6 6 6-6"/></svg>
+          <span id="panelsToggleExpanded" class="flex items-center gap-2">
+            <span class="whitespace-nowrap text-xs font-bold uppercase tracking-[.16em] text-cyan-700 dark:text-cyan-300">Panels</span>
+            <span id="diseaseCount" class="whitespace-nowrap rounded-full bg-cyan-100 px-2 py-0.5 text-[11px] font-bold text-cyan-800 dark:bg-cyan-500/15 dark:text-cyan-200"></span>
+            <svg id="panelsToggleChevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 shrink-0 text-cyan-700 transition-transform duration-200 dark:text-cyan-300"><path d="m6 9 6 6 6-6"/></svg>
+          </span>
         </button>
         <div id="panelsColumnBody" class="mt-3">
           <div id="diseaseList" class="space-y-2"></div>
@@ -5432,7 +5434,8 @@
     function applyPanelsCollapsed() {
       const collapsed = state.panelsCollapsed;
       $('panelsColumnBody').classList.toggle('hidden', collapsed);
-      $('diseaseCount').classList.toggle('hidden', collapsed);
+      $('panelsToggleExpanded').classList.toggle('hidden', collapsed);
+      $('togglePanelsColumn').classList.toggle('w-full', !collapsed);
       $('togglePanelsColumn').setAttribute('aria-expanded', String(!collapsed));
       $('panelsToggleChevron').classList.toggle('rotate-180', !collapsed);
       $('mainGrid').classList.toggle(EXPANDED_GRID, !collapsed);
