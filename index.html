@@ -28,8 +28,17 @@
     * { scrollbar-width: thin; scrollbar-color: #cbd5e1 transparent; }
     .dark * { scrollbar-color: #334155 transparent; }
     html, body { font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif; }
-    body { background-color: #f8fafc; }
-    .dark body { background-color: #0b1120; }
+    body {
+      background-color: #f8fafc;
+      background-image: radial-gradient(rgba(15, 23, 42, .07) 1px, transparent 1px);
+      background-size: 22px 22px;
+      background-attachment: fixed;
+    }
+    .dark body {
+      background-color: #0b1120;
+      background-image: radial-gradient(rgba(255, 255, 255, .06) 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
     .gene-chip:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid #0891b2; outline-offset: 2px; }
     .table-wrap table { width: 100%; border-collapse: separate; border-spacing: 0; }
     .table-wrap th { background: #f1f5f9; color: #334155; font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; }
@@ -60,17 +69,17 @@
     }
     .panel-card::before {
       content: ''; position: absolute; left: 0; right: 0; top: 0; height: 3px; border-radius: 3px 3px 0 0;
-      background: linear-gradient(90deg, #06b6d4, #14b8a6);
+      background: var(--accent, linear-gradient(90deg, #06b6d4, #14b8a6));
       transform: scaleX(0); transform-origin: left; transition: transform .25s ease;
     }
     .panel-card:hover {
-      border-color: #67e8f9;
+      border-color: var(--accent, #67e8f9);
       transform: translateY(-4px);
-      box-shadow: 0 16px 28px -10px rgba(8, 145, 178, 0.22);
+      box-shadow: 0 16px 28px -10px color-mix(in srgb, var(--accent, #0891b2) 55%, transparent);
     }
     .panel-card:hover::before { transform: scaleX(1); }
     .dark .panel-card { box-shadow: none; }
-    .dark .panel-card:hover { border-color: #0e7490; box-shadow: 0 16px 28px -10px rgba(0, 0, 0, 0.5); }
+    .dark .panel-card:hover { box-shadow: 0 16px 28px -10px rgba(0, 0, 0, 0.55); }
     .panel-card .card-icon { transition: transform .25s cubic-bezier(.34,1.56,.64,1), background-color .2s ease; }
     .panel-card:hover .card-icon { transform: scale(1.12) rotate(-4deg); }
 
@@ -79,8 +88,8 @@
     .dark .gene-chip:hover { background-color: rgba(8, 145, 178, .18); }
 
     .stat-card { position: relative; overflow: hidden; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
-    .stat-card:hover { border-color: #a5f3fc; transform: translateY(-3px); box-shadow: 0 14px 24px -10px rgba(8, 145, 178, 0.18); }
-    .dark .stat-card:hover { border-color: #0e7490; box-shadow: 0 14px 24px -10px rgba(0, 0, 0, 0.45); }
+    .stat-card:hover { border-color: #cbd5e1; transform: translateY(-3px); box-shadow: 0 14px 26px -10px rgba(15, 23, 42, 0.16); }
+    .dark .stat-card:hover { border-color: #475569; box-shadow: 0 14px 26px -10px rgba(0, 0, 0, 0.5); }
     .stat-card .stat-icon { transition: transform .25s cubic-bezier(.34,1.56,.64,1), opacity .2s ease; }
     .stat-card:hover .stat-icon { transform: scale(1.15); opacity: .18; }
 
@@ -101,9 +110,10 @@
   <div id="toast" class="fixed bottom-6 right-6 z-50 hidden rounded-xl bg-slate-900 px-4 py-3 text-sm font-bold text-white shadow-pop dark:bg-white dark:text-slate-900"></div>
   <div class="min-h-screen">
     <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur dark:border-slate-800 dark:bg-slate-950/95">
+      <div class="h-1 w-full bg-gradient-to-r from-rose-400 via-amber-400 via-emerald-400 via-cyan-400 to-violet-500"></div>
       <div class="flex min-h-16 items-center gap-3 px-4 sm:px-6 lg:px-8">
         <button id="logoHome" type="button" class="flex items-center gap-3 min-w-0">
-          <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-cyan-600 text-sm font-bold text-white">AD</div>
+          <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 text-sm font-bold text-white shadow-pop">AD</div>
           <div class="min-w-0">
             <h1 class="truncate text-base font-bold tracking-tight text-slate-900 sm:text-lg dark:text-white">ADVAT Germline Panel</h1>
           </div>
@@ -126,21 +136,21 @@
       <section id="homeView">
         <div class="mb-6 grid gap-4 sm:grid-cols-3">
           <div class="stat-card rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-16 w-16 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2a5 5 0 0 0-5 5v3H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-2V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-16 w-16 text-rose-500/10 dark:text-rose-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2a5 5 0 0 0-5 5v3H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-2V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3Z"/></svg>
             <p class="text-xs font-bold uppercase tracking-[.16em] text-slate-500 dark:text-slate-400">Total Organs</p>
-            <p id="homeStatOrgans" class="mt-2 text-3xl font-bold text-cyan-600 dark:text-cyan-400"></p>
+            <p id="homeStatOrgans" class="mt-2 text-4xl font-extrabold text-rose-500 dark:text-rose-400"></p>
             <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Organ systems covered</p>
           </div>
           <div class="stat-card rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-16 w-16 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm0 5h6M9 12h6M9 16h3"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-16 w-16 text-amber-500/10 dark:text-amber-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm0 5h6M9 12h6M9 16h3"/></svg>
             <p class="text-xs font-bold uppercase tracking-[.16em] text-slate-500 dark:text-slate-400">Disease Panels</p>
-            <p id="homeStatPanels" class="mt-2 text-3xl font-bold text-cyan-600 dark:text-cyan-400"></p>
+            <p id="homeStatPanels" class="mt-2 text-4xl font-extrabold text-amber-500 dark:text-amber-400"></p>
             <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Clinical gene panels</p>
           </div>
           <div class="stat-card rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-16 w-16 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12c2-4 5-6 8-6s6 2 8 6c-2 4-5 6-8 6s-6-2-8-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-16 w-16 text-violet-500/10 dark:text-violet-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12c2-4 5-6 8-6s6 2 8 6c-2 4-5 6-8 6s-6-2-8-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
             <p class="text-xs font-bold uppercase tracking-[.16em] text-slate-500 dark:text-slate-400">Total Genes</p>
-            <p id="homeStatGenes" class="mt-2 text-3xl font-bold text-cyan-600 dark:text-cyan-400"></p>
+            <p id="homeStatGenes" class="mt-2 text-4xl font-extrabold text-violet-500 dark:text-violet-400"></p>
             <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Unique curated genes</p>
           </div>
         </div>
@@ -151,7 +161,8 @@
         </label>
 
         <div class="mb-4">
-          <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Explore by Organ System</h2>
+          <p class="eyebrow text-xs font-bold uppercase tracking-[.18em] text-cyan-700 dark:text-cyan-300">Browse</p>
+          <h2 class="mt-1 text-2xl font-bold text-slate-900 dark:text-white">Explore by Organ System</h2>
           <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Select an organ to view its associated disease panels.</p>
         </div>
         <div id="organGrid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></div>
@@ -5301,6 +5312,26 @@
     };
     const organIcon = (id) => ORGAN_ICONS[id] || '🧬';
 
+    const ORGAN_COLORS = {
+      cancer: { name: 'amber', hex: '#f59e0b' },
+      cardio: { name: 'rose', hex: '#f43f5e' },
+      dental: { name: 'sky', hex: '#0ea5e9' },
+      endocrinology: { name: 'emerald', hex: '#10b981' },
+      eyes: { name: 'violet', hex: '#8b5cf6' },
+      hearing: { name: 'orange', hex: '#f97316' },
+      immune: { name: 'blue', hex: '#3b82f6' },
+      liver: { name: 'lime', hex: '#84cc16' },
+      lung: { name: 'cyan', hex: '#06b6d4' },
+      muscularskeletal: { name: 'yellow', hex: '#eab308' },
+      neuro: { name: 'pink', hex: '#ec4899' },
+      pharma: { name: 'red', hex: '#ef4444' },
+      renal: { name: 'purple', hex: '#a855f7' },
+      skin: { name: 'teal', hex: '#14b8a6' },
+      reproductive: { name: 'fuchsia', hex: '#d946ef' },
+      ces: { name: 'indigo', hex: '#6366f1' }
+    };
+    const organColor = (id) => ORGAN_COLORS[id] || { name: 'green', hex: '#22c55e' };
+
     function showView(view) {
       $('homeView').classList.toggle('hidden', view !== 'home');
       $('organView').classList.toggle('hidden', view !== 'organ');
@@ -5317,12 +5348,15 @@
       $('homeStatGenes').textContent = TOTAL_UNIQUE_GENES.size;
 
       const groups = filteredOrgans();
-      $('organGrid').innerHTML = groups.map(o => `
-        <button type="button" class="panel-card flex h-full flex-col rounded-xl border border-slate-200 bg-white p-5 text-left hover:border-cyan-300 dark:border-slate-800 dark:bg-slate-900" data-organ="${escapeHtml(o.id)}">
-          <span class="card-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-xl dark:bg-slate-800">${organIcon(o.id)}</span>
+      $('organGrid').innerHTML = groups.map(o => {
+        const c = organColor(o.id);
+        return `
+        <button type="button" class="panel-card flex h-full flex-col rounded-xl border border-slate-200 bg-white p-5 text-left dark:border-slate-800 dark:bg-slate-900" style="--accent:${c.hex}" data-organ="${escapeHtml(o.id)}">
+          <span class="card-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-${c.name}-50 text-xl dark:bg-${c.name}-900/20">${organIcon(o.id)}</span>
           <h3 class="mt-3 font-bold text-slate-900 dark:text-white">${escapeHtml(o.title)}</h3>
           <p class="mt-auto pt-1 text-xs text-slate-500 dark:text-slate-400">${o.diseases.length} panels</p>
-        </button>`).join('') || `<p class="col-span-full rounded-xl border border-dashed border-slate-300 p-6 text-center text-sm text-slate-500 dark:border-slate-700">No organs match your search.</p>`;
+        </button>`;
+      }).join('') || `<p class="col-span-full rounded-xl border border-dashed border-slate-300 p-6 text-center text-sm text-slate-500 dark:border-slate-700">No organs match your search.</p>`;
       document.querySelectorAll('#organGrid [data-organ]').forEach(btn => {
         btn.addEventListener('click', () => goOrgan(btn.dataset.organ));
       });
@@ -5339,7 +5373,7 @@
       $('organViewCount').textContent = `${diseases.length} of ${organ.diseases.length} panels`;
       $('diseaseGrid').innerHTML = diseases.map(d => {
         const gCount = geneList(d.genes).length;
-        return `<button type="button" class="panel-card flex h-full flex-col rounded-xl border border-slate-200 bg-white p-4 text-left hover:border-cyan-300 dark:border-slate-800 dark:bg-slate-900" data-disease="${escapeHtml(d.id)}">
+        return `<button type="button" class="panel-card flex h-full flex-col rounded-xl border border-slate-200 bg-white p-4 text-left dark:border-slate-800 dark:bg-slate-900" data-disease="${escapeHtml(d.id)}">
           <span class="block text-sm font-bold leading-snug text-slate-900 dark:text-white">${escapeHtml(d.name)}</span>
           <span class="mt-auto flex items-center gap-2 pt-2 text-xs text-slate-500 dark:text-slate-400"><span class="rounded-full bg-cyan-100 px-2 py-0.5 font-bold text-cyan-800 dark:bg-cyan-500/15 dark:text-cyan-200">${gCount} genes</span>${escapeHtml(d.method || 'Method not listed')}</span>
         </button>`;
