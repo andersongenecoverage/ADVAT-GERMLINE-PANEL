@@ -52,18 +52,41 @@
     @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
     .animate-in { animation: fadeSlideIn .3s ease both; }
 
-    .panel-card { transition: border-color .15s ease, background-color .15s ease; }
-    .panel-card:hover { border-color: #a5f3fc; }
+    .panel-card {
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+      transition: transform .2s cubic-bezier(.2,.8,.2,1), box-shadow .2s ease, border-color .2s ease;
+    }
+    .panel-card::before {
+      content: ''; position: absolute; left: 0; right: 0; top: 0; height: 3px; border-radius: 3px 3px 0 0;
+      background: linear-gradient(90deg, #06b6d4, #14b8a6);
+      transform: scaleX(0); transform-origin: left; transition: transform .25s ease;
+    }
+    .panel-card:hover {
+      border-color: #67e8f9;
+      transform: translateY(-4px);
+      box-shadow: 0 16px 28px -10px rgba(8, 145, 178, 0.22);
+    }
+    .panel-card:hover::before { transform: scaleX(1); }
+    .dark .panel-card { box-shadow: none; }
+    .dark .panel-card:hover { border-color: #0e7490; box-shadow: 0 16px 28px -10px rgba(0, 0, 0, 0.5); }
+    .panel-card .card-icon { transition: transform .25s cubic-bezier(.34,1.56,.64,1), background-color .2s ease; }
+    .panel-card:hover .card-icon { transform: scale(1.12) rotate(-4deg); }
 
-    .gene-chip { transition: background-color .12s ease, border-color .12s ease, color .12s ease; }
-    .gene-chip:hover { background-color: #ecfeff; border-color: #67e8f9; }
+    .gene-chip { transition: transform .12s ease, background-color .12s ease, border-color .12s ease, color .12s ease; }
+    .gene-chip:hover { background-color: #ecfeff; border-color: #67e8f9; transform: translateY(-1px); }
+    .dark .gene-chip:hover { background-color: rgba(8, 145, 178, .18); }
 
-    .stat-card { transition: border-color .15s ease; }
-    .stat-card:hover { border-color: #a5f3fc; }
-    .dark .stat-card:hover { border-color: #0e7490; }
+    .stat-card { position: relative; overflow: hidden; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+    .stat-card:hover { border-color: #a5f3fc; transform: translateY(-3px); box-shadow: 0 14px 24px -10px rgba(8, 145, 178, 0.18); }
+    .dark .stat-card:hover { border-color: #0e7490; box-shadow: 0 14px 24px -10px rgba(0, 0, 0, 0.45); }
+    .stat-card .stat-icon { transition: transform .25s cubic-bezier(.34,1.56,.64,1), opacity .2s ease; }
+    .stat-card:hover .stat-icon { transform: scale(1.15); opacity: .18; }
 
-    .icon-btn { transition: background-color .15s ease, border-color .15s ease, color .15s ease, opacity .15s ease; }
-    .icon-btn:active { opacity: .8; }
+    .icon-btn { transition: transform .15s cubic-bezier(.34,1.56,.64,1), background-color .15s ease, border-color .15s ease, color .15s ease, opacity .15s ease; }
+    .icon-btn:hover { transform: translateY(-2px); }
+    .icon-btn:active { opacity: .8; transform: translateY(0) scale(.96); }
 
     .sun-icon, .moon-icon { transition: opacity .2s ease; }
     .dark .sun-icon { display: none; }
@@ -112,17 +135,20 @@
 
       <section id="homeView">
         <div class="mb-6 grid gap-4 sm:grid-cols-3">
-          <div class="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+          <div class="stat-card rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-16 w-16 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2a5 5 0 0 0-5 5v3H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-2V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3Z"/></svg>
             <p class="text-xs font-bold uppercase tracking-[.16em] text-slate-500 dark:text-slate-400">Total Organs</p>
             <p id="homeStatOrgans" class="mt-2 text-3xl font-bold text-cyan-600 dark:text-cyan-400"></p>
             <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Organ systems covered</p>
           </div>
-          <div class="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+          <div class="stat-card rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-16 w-16 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm0 5h6M9 12h6M9 16h3"/></svg>
             <p class="text-xs font-bold uppercase tracking-[.16em] text-slate-500 dark:text-slate-400">Disease Panels</p>
             <p id="homeStatPanels" class="mt-2 text-3xl font-bold text-cyan-600 dark:text-cyan-400"></p>
             <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Clinical gene panels</p>
           </div>
-          <div class="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+          <div class="stat-card rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-16 w-16 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12c2-4 5-6 8-6s6 2 8 6c-2 4-5 6-8 6s-6-2-8-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
             <p class="text-xs font-bold uppercase tracking-[.16em] text-slate-500 dark:text-slate-400">Total Genes</p>
             <p id="homeStatGenes" class="mt-2 text-3xl font-bold text-cyan-600 dark:text-cyan-400"></p>
             <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Unique curated genes</p>
@@ -179,15 +205,15 @@
 
           <div class="mt-6 grid gap-4 sm:grid-cols-3">
             <div class="stat-card relative overflow-hidden rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="absolute -right-2 -top-2 h-14 w-14 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2a5 5 0 0 0-5 5v3H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-2V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-14 w-14 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2a5 5 0 0 0-5 5v3H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-2V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3Z"/></svg>
               <p class="text-xs font-bold uppercase text-cyan-700 dark:text-cyan-300">Organs</p><p id="statOrgans" class="mt-1 text-2xl font-bold text-slate-900 dark:text-white"></p>
             </div>
             <div class="stat-card relative overflow-hidden rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="absolute -right-2 -top-2 h-14 w-14 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm0 5h6M9 12h6M9 16h3"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-14 w-14 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm0 5h6M9 12h6M9 16h3"/></svg>
               <p class="text-xs font-bold uppercase text-cyan-700 dark:text-cyan-300">Panels</p><p id="statDiseases" class="mt-1 text-2xl font-bold text-slate-900 dark:text-white"></p>
             </div>
             <div class="stat-card relative overflow-hidden rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="absolute -right-2 -top-2 h-14 w-14 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12c2-4 5-6 8-6s6 2 8 6c-2 4-5 6-8 6s-6-2-8-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-14 w-14 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12c2-4 5-6 8-6s6 2 8 6c-2 4-5 6-8 6s-6-2-8-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
               <p class="text-xs font-bold uppercase text-cyan-700 dark:text-cyan-300">Genes in View</p><p id="statGenes" class="mt-1 text-2xl font-bold text-slate-900 dark:text-white"></p>
             </div>
           </div>
@@ -5298,7 +5324,7 @@
       const groups = filteredOrgans();
       $('organGrid').innerHTML = groups.map(o => `
         <button type="button" class="panel-card flex h-full flex-col rounded-xl border border-slate-200 bg-white p-5 text-left hover:border-cyan-300 dark:border-slate-800 dark:bg-slate-900" data-organ="${escapeHtml(o.id)}">
-          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-xl dark:bg-slate-800">${organIcon(o.id)}</span>
+          <span class="card-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-xl dark:bg-slate-800">${organIcon(o.id)}</span>
           <h3 class="mt-3 font-bold text-slate-900 dark:text-white">${escapeHtml(o.title)}</h3>
           <p class="mt-auto pt-1 text-xs text-slate-500 dark:text-slate-400">${o.diseases.length} panels</p>
         </button>`).join('') || `<p class="col-span-full rounded-xl border border-dashed border-slate-300 p-6 text-center text-sm text-slate-500 dark:border-slate-700">No organs match your search.</p>`;
