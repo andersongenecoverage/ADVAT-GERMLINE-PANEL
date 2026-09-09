@@ -19,113 +19,88 @@
               50: '#ecfeff', 100: '#cffafe', 500: '#06b6d4', 600: '#0891b2', 700: '#0e7490', 900: '#164e63'
             }
           },
-          boxShadow: { soft: '0 18px 45px rgba(15, 23, 42, 0.08)', pop: '0 10px 25px rgba(8, 145, 178, 0.18)', glow: '0 0 0 1px rgba(6,182,212,.15), 0 20px 50px -12px rgba(6,182,212,.45)' }
+          boxShadow: { soft: '0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 24px -8px rgba(15, 23, 42, 0.08)', pop: '0 4px 10px rgba(8, 145, 178, 0.16)' }
         }
       }
     };
   </script>
   <style>
-    * { scrollbar-width: thin; scrollbar-color: #67e8f9 transparent; }
+    * { scrollbar-width: thin; scrollbar-color: #cbd5e1 transparent; }
+    .dark * { scrollbar-color: #334155 transparent; }
     html, body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
-    body {
-      background-color: #f0fbfd;
-      background-image:
-        radial-gradient(circle at 8% 0%, rgba(6, 182, 212, 0.16), transparent 42%),
-        radial-gradient(circle at 92% 8%, rgba(20, 184, 166, 0.14), transparent 40%),
-        radial-gradient(circle at 50% 100%, rgba(99, 102, 241, 0.08), transparent 45%),
-        linear-gradient(rgba(15,23,42,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,.035) 1px, transparent 1px);
-      background-size: auto, auto, auto, 42px 42px, 42px 42px;
-      background-attachment: fixed;
-    }
-    .dark body {
-      background-color: #050b14;
-      background-image:
-        radial-gradient(circle at 8% 0%, rgba(6, 182, 212, 0.22), transparent 42%),
-        radial-gradient(circle at 92% 8%, rgba(20, 184, 166, 0.18), transparent 40%),
-        radial-gradient(circle at 50% 100%, rgba(99, 102, 241, 0.14), transparent 45%),
-        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-      background-size: auto, auto, auto, 42px 42px, 42px 42px;
-    }
-    .bg-blob { position: fixed; border-radius: 9999px; filter: blur(70px); pointer-events: none; z-index: 0; opacity: .55; }
-    .dark .bg-blob { opacity: .35; }
-    .gradient-text { background-image: linear-gradient(120deg, #0e7490, #0891b2 40%, #14b8a6 75%, #6366f1); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .dark .gradient-text { background-image: linear-gradient(120deg, #67e8f9, #5eead4 55%, #a5b4fc); }
-    .gene-chip:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid rgba(6, 182, 212, .45); outline-offset: 2px; }
+    body { background-color: #f8fafc; }
+    .dark body { background-color: #0b1120; }
+    .gene-chip:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid #0891b2; outline-offset: 2px; }
     .table-wrap table { width: 100%; border-collapse: separate; border-spacing: 0; }
-    .table-wrap th { background: #e0f7fa; color: #155e75; font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; }
-    .dark .table-wrap th { background: rgba(8, 145, 178, .18); color: #a5f3fc; }
-    .table-wrap th, .table-wrap td { border-bottom: 1px solid rgba(148, 163, 184, .28); padding: .85rem 1rem; vertical-align: top; }
+    .table-wrap th { background: #f1f5f9; color: #334155; font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; }
+    .dark .table-wrap th { background: #111a2e; color: #94a3b8; }
+    .table-wrap th, .table-wrap td { border-bottom: 1px solid #e2e8f0; padding: .8rem 1rem; vertical-align: top; }
+    .dark .table-wrap th, .dark .table-wrap td { border-bottom-color: #1e293b; }
     .table-wrap tbody tr { transition: background-color .15s ease; }
-    .table-wrap tr:hover td { background: rgba(236, 254, 255, .7); }
-    .dark .table-wrap tr:hover td { background: rgba(15, 23, 42, .72); }
+    .table-wrap tr:hover td { background: #f8fafc; }
+    .dark .table-wrap tr:hover td { background: #0f172a; }
     @media (max-width: 760px) {
       .responsive-table thead { display: none; }
       .responsive-table, .responsive-table tbody, .responsive-table tr, .responsive-table td { display: block; width: 100%; }
-      .responsive-table tr { border-bottom: 1px solid rgba(148, 163, 184, .35); padding: .75rem 0; }
+      .responsive-table tr { border-bottom: 1px solid #e2e8f0; padding: .75rem 0; }
       .responsive-table td { border: 0; padding: .35rem 1rem; }
-      .responsive-table td::before { content: attr(data-label); display: block; margin-bottom: .2rem; font-size: .68rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #0891b2; }
+      .responsive-table td::before { content: attr(data-label); display: block; margin-bottom: .2rem; font-size: .68rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #64748b; }
     }
     .copy-toast { animation: fadeInOut 1.5s ease forwards; }
     @keyframes fadeInOut { 0% { opacity: 0; transform: translateY(6px); } 15% { opacity: 1; transform: translateY(0); } 85% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-6px); } }
 
-    /* ---- UI refresh: cards, nav items, chips, animations ---- */
-    @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-    .animate-in { animation: fadeSlideIn .35s ease both; }
+    @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-in { animation: fadeSlideIn .3s ease both; }
 
-    .nav-card { position: relative; transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease, background-color .15s ease; }
-    .nav-card:hover { transform: translateX(2px); }
-    .nav-card.is-active { box-shadow: 0 10px 26px rgba(8, 145, 178, 0.18); background-image: linear-gradient(120deg, rgba(6,182,212,.12), rgba(20,184,166,.08)); }
-    .dark .nav-card.is-active { background-image: linear-gradient(120deg, rgba(6,182,212,.16), rgba(20,184,166,.1)); }
-    .nav-card.is-active::before { content: ''; position: absolute; left: -1px; top: 10%; bottom: 10%; width: 4px; border-radius: 4px; background: linear-gradient(180deg, #06b6d4, #14b8a6, #6366f1); }
+    .nav-card { position: relative; transition: border-color .15s ease, background-color .15s ease; }
+    .nav-card.is-active { background-color: #ecfeff; }
+    .dark .nav-card.is-active { background-color: rgba(8, 145, 178, .14); }
+    .nav-card.is-active::before { content: ''; position: absolute; left: -1px; top: 8px; bottom: 8px; width: 3px; border-radius: 3px; background: #0891b2; }
 
-    .panel-card { transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
-    .panel-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08); }
+    .panel-card { transition: border-color .15s ease, background-color .15s ease; }
+    .panel-card:hover { border-color: #a5f3fc; }
 
-    .gene-chip { transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease, border-color .12s ease; }
-    .gene-chip:hover { transform: translateY(-1px) scale(1.03); box-shadow: 0 6px 14px rgba(8, 145, 178, 0.18); }
+    .gene-chip { transition: background-color .12s ease, border-color .12s ease, color .12s ease; }
+    .gene-chip:hover { background-color: #ecfeff; border-color: #67e8f9; }
 
-    .stat-card { transition: transform .15s ease, box-shadow .15s ease; }
-    .stat-card:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08); }
+    .stat-card { transition: border-color .15s ease; }
+    .stat-card:hover { border-color: #a5f3fc; }
+    .dark .stat-card:hover { border-color: #0e7490; }
 
-    .icon-btn { transition: transform .15s ease, background-color .15s ease, border-color .15s ease, color .15s ease; }
-    .icon-btn:hover { transform: translateY(-1px); }
-    .icon-btn:active { transform: translateY(0) scale(.97); }
+    .icon-btn { transition: background-color .15s ease, border-color .15s ease, color .15s ease, opacity .15s ease; }
+    .icon-btn:active { opacity: .8; }
 
-    .sun-icon, .moon-icon { transition: opacity .2s ease, transform .3s ease; }
+    .sun-icon, .moon-icon { transition: opacity .2s ease; }
     .dark .sun-icon { display: none; }
     .moon-icon { display: none; }
     .dark .moon-icon { display: inline-flex; }
 
     #organList::-webkit-scrollbar, #panelsColumn::-webkit-scrollbar { width: 6px; }
 
-    .eyebrow { position: relative; padding-left: 14px; }
-    .eyebrow::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 7px; height: 7px; border-radius: 9999px; background: linear-gradient(135deg, #06b6d4, #14b8a6); box-shadow: 0 0 8px rgba(6,182,212,.6); }
+    .eyebrow { position: relative; padding-left: 13px; }
+    .eyebrow::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 6px; height: 6px; border-radius: 9999px; background: #0891b2; }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
   <div id="toast" class="fixed bottom-6 right-6 z-50 hidden rounded-xl bg-slate-900 px-4 py-3 text-sm font-bold text-white shadow-pop dark:bg-white dark:text-slate-900"></div>
-  <div class="bg-blob h-72 w-72 bg-cyan-400 -left-20 -top-20"></div>
-  <div class="bg-blob h-80 w-80 bg-teal-400 -right-24 top-10"></div>
-  <div class="bg-blob h-64 w-64 bg-indigo-400 left-1/3 bottom-0"></div>
-  <div class="relative z-10 min-h-screen">
-    <div class="h-1 w-full bg-gradient-to-r from-cyan-500 via-teal-400 to-indigo-500"></div>
-    <header class="sticky top-0 z-40 border-b border-cyan-100/80 bg-white/85 backdrop-blur-md dark:border-slate-800 dark:bg-slate-950/85">
+  <div class="min-h-screen">
+    <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur dark:border-slate-800 dark:bg-slate-950/95">
       <div class="flex min-h-16 items-center gap-3 px-4 sm:px-6 lg:px-8">
-        <button id="mobileMenu" class="icon-btn inline-flex h-10 w-10 items-center justify-center rounded-lg border border-cyan-100 text-cyan-700 lg:hidden dark:border-slate-700 dark:text-cyan-200" aria-label="Open organ navigation">
+        <button id="mobileMenu" class="icon-btn inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-600 lg:hidden dark:border-slate-700 dark:text-slate-300" aria-label="Open organ navigation">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" class="h-5 w-5"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
         </button>
         <div class="flex items-center gap-3 min-w-0">
-          <div class="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 via-teal-500 to-indigo-500 text-sm font-black text-white shadow-glow ring-2 ring-white/60 dark:ring-slate-950/60">AD</div>
+          <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-cyan-600 text-sm font-bold text-white">AD</div>
           <div class="min-w-0">
-            <h1 class="gradient-text truncate text-base font-black tracking-tight sm:text-xl">ADVAT GERMLINE PANEL</h1>
+            <h1 class="truncate text-base font-bold tracking-tight text-slate-900 sm:text-lg dark:text-white">ADVAT Germline Panel</h1>
           </div>
         </div>
         <div class="ml-auto flex flex-1 items-center justify-end gap-3">
           <label class="relative hidden w-full max-w-xl md:block">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-cyan-600 dark:text-cyan-300"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-            <input id="globalSearch" type="search" placeholder="Search organs, diseases, genes, methods..." class="h-11 w-full rounded-full border border-cyan-100 bg-cyan-50/60 pl-11 pr-4 text-sm text-slate-900 placeholder:text-slate-400 transition focus:border-cyan-400 focus:bg-white focus:shadow-glow dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:border-cyan-400" />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <input id="globalSearch" type="search" placeholder="Search organs, diseases, genes, methods..." class="h-10 w-full rounded-lg border border-slate-200 bg-slate-50 pl-10 pr-4 text-sm text-slate-900 placeholder:text-slate-400 transition focus:border-cyan-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:border-cyan-500" />
           </label>
-          <button id="darkToggle" class="icon-btn inline-flex h-10 items-center gap-2 rounded-full border border-cyan-100 px-3 text-sm font-semibold text-slate-700 hover:border-cyan-300 hover:text-cyan-700 dark:border-slate-700 dark:text-slate-200 dark:hover:text-cyan-200" aria-label="Toggle dark mode">
+          <button id="darkToggle" class="icon-btn inline-flex h-10 items-center gap-2 rounded-lg border border-slate-200 px-3 text-sm font-medium text-slate-600 hover:border-slate-300 hover:text-slate-900 dark:border-slate-700 dark:text-slate-300 dark:hover:text-white" aria-label="Toggle dark mode">
             <svg id="darkIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="sun-icon h-4 w-4"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon h-4 w-4"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
             <span class="hidden sm:inline">Theme</span>
@@ -208,7 +183,7 @@
             <h2 id="detailTitle" class="mt-2 text-2xl font-extrabold tracking-tight text-slate-950 dark:text-white"></h2>
             <p id="detailMethod" class="mt-2 text-sm text-slate-600 dark:text-slate-400"></p>
             <div class="mt-3 flex flex-wrap items-center justify-center gap-2">
-              <button id="copyDisease" type="button" class="icon-btn flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-cyan-600 via-teal-500 to-indigo-500 text-white shadow-glow hover:from-cyan-700 hover:via-teal-600 hover:to-indigo-600" title="Copy panel name">
+              <button id="copyDisease" type="button" class="icon-btn flex h-9 w-9 items-center justify-center rounded-full bg-cyan-600 text-white hover:bg-cyan-700" title="Copy panel name">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
               </button>
               <button id="copyGenes" type="button" class="icon-btn flex h-9 w-9 items-center justify-center rounded-full border border-cyan-200 text-cyan-800 hover:border-cyan-400 hover:bg-cyan-50 dark:border-cyan-800 dark:text-cyan-200 dark:hover:bg-slate-800" title="Copy genes">
@@ -221,17 +196,17 @@
           </div>
 
           <div class="mt-6 grid gap-4 sm:grid-cols-3">
-            <div class="stat-card relative overflow-hidden rounded-xl border border-cyan-100 bg-gradient-to-br from-cyan-50 to-white p-4 dark:border-slate-800 dark:from-slate-950 dark:to-slate-900">
+            <div class="stat-card relative overflow-hidden rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="absolute -right-2 -top-2 h-14 w-14 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2a5 5 0 0 0-5 5v3H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-2V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3Z"/></svg>
-              <p class="text-xs font-bold uppercase text-cyan-700 dark:text-cyan-300">Organs</p><p id="statOrgans" class="mt-1 bg-gradient-to-br from-cyan-700 to-teal-600 bg-clip-text text-2xl font-black text-transparent dark:from-cyan-300 dark:to-teal-300"></p>
+              <p class="text-xs font-bold uppercase text-cyan-700 dark:text-cyan-300">Organs</p><p id="statOrgans" class="mt-1 text-2xl font-bold text-slate-900 dark:text-white"></p>
             </div>
-            <div class="stat-card relative overflow-hidden rounded-xl border border-cyan-100 bg-gradient-to-br from-cyan-50 to-white p-4 dark:border-slate-800 dark:from-slate-950 dark:to-slate-900">
+            <div class="stat-card relative overflow-hidden rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="absolute -right-2 -top-2 h-14 w-14 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm0 5h6M9 12h6M9 16h3"/></svg>
-              <p class="text-xs font-bold uppercase text-cyan-700 dark:text-cyan-300">Panels</p><p id="statDiseases" class="mt-1 bg-gradient-to-br from-cyan-700 to-teal-600 bg-clip-text text-2xl font-black text-transparent dark:from-cyan-300 dark:to-teal-300"></p>
+              <p class="text-xs font-bold uppercase text-cyan-700 dark:text-cyan-300">Panels</p><p id="statDiseases" class="mt-1 text-2xl font-bold text-slate-900 dark:text-white"></p>
             </div>
-            <div class="stat-card relative overflow-hidden rounded-xl border border-cyan-100 bg-gradient-to-br from-cyan-50 to-white p-4 dark:border-slate-800 dark:from-slate-950 dark:to-slate-900">
+            <div class="stat-card relative overflow-hidden rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="absolute -right-2 -top-2 h-14 w-14 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12c2-4 5-6 8-6s6 2 8 6c-2 4-5 6-8 6s-6-2-8-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
-              <p class="text-xs font-bold uppercase text-cyan-700 dark:text-cyan-300">Genes in View</p><p id="statGenes" class="mt-1 bg-gradient-to-br from-cyan-700 to-teal-600 bg-clip-text text-2xl font-black text-transparent dark:from-cyan-300 dark:to-teal-300"></p>
+              <p class="text-xs font-bold uppercase text-cyan-700 dark:text-cyan-300">Genes in View</p><p id="statGenes" class="mt-1 text-2xl font-bold text-slate-900 dark:text-white"></p>
             </div>
           </div>
 
@@ -5413,7 +5388,7 @@
       $('statDiseases').textContent = DATA.reduce((s, o) => s + o.diseases.length, 0);
       $('statGenes').textContent = genes.length;
       $('geneChips').innerHTML = genes.map(g =>
-        `<button class="gene-chip rounded-full border border-cyan-200 bg-gradient-to-b from-white to-cyan-50/70 px-3 py-1.5 text-sm font-bold text-cyan-800 hover:border-cyan-400 hover:from-cyan-50 hover:to-teal-50 dark:border-cyan-800 dark:from-slate-900 dark:to-slate-900 dark:text-cyan-100 dark:hover:from-cyan-500/15 dark:hover:to-cyan-500/15" title="Copy ${escapeHtml(g)}" data-copy="${escapeHtml(g)}">${escapeHtml(g)}</button>`
+        `<button class="gene-chip rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200" title="Copy ${escapeHtml(g)}" data-copy="${escapeHtml(g)}">${escapeHtml(g)}</button>`
       ).join('') || '<p class="text-sm text-slate-500">No genes listed.</p>';
       $('detailTable').innerHTML = rowHtml(disease, false);
       $('organTableTitle').textContent = `${organ.title} gene panels`;
