@@ -84,8 +84,8 @@
     .panel-card:hover .card-icon { transform: scale(1.12) rotate(-4deg); }
 
     .gene-chip { transition: transform .12s ease, background-color .12s ease, border-color .12s ease, color .12s ease; }
-    .gene-chip:hover { background-color: #ecfeff; border-color: #67e8f9; transform: translateY(-1px); }
-    .dark .gene-chip:hover { background-color: rgba(8, 145, 178, .18); }
+    .gene-chip:hover { background-color: color-mix(in srgb, var(--accent, #06b6d4) 12%, white); border-color: var(--accent, #67e8f9); transform: translateY(-1px); }
+    .dark .gene-chip:hover { background-color: color-mix(in srgb, var(--accent, #06b6d4) 22%, #0f172a); }
 
     .stat-card { position: relative; overflow: hidden; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
     .stat-card:hover { border-color: #cbd5e1; transform: translateY(-3px); box-shadow: 0 14px 26px -10px rgba(15, 23, 42, 0.16); }
@@ -103,7 +103,13 @@
     .dark .moon-icon { display: inline-flex; }
 
     .eyebrow { position: relative; padding-left: 13px; }
-    .eyebrow::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 6px; height: 6px; border-radius: 9999px; background: #0891b2; }
+    .eyebrow::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 6px; height: 6px; border-radius: 9999px; background: var(--accent, #0891b2); }
+
+    .accent-link { color: var(--accent, #0e7490); transition: opacity .15s ease; }
+    .accent-link:hover { opacity: .7; }
+
+    .icon-btn.is-primary { background: var(--accent, #0891b2); color: #fff; }
+    .icon-btn.is-primary:hover { filter: brightness(0.92); }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
@@ -169,15 +175,18 @@
       </section>
 
       <section id="organView" class="hidden">
-        <button id="backToHome" type="button" class="mb-4 inline-flex items-center gap-1 text-sm font-semibold text-cyan-700 hover:text-cyan-900 dark:text-cyan-300">
+        <button id="backToHome" type="button" class="accent-link mb-4 inline-flex items-center gap-1 text-sm font-semibold">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="m15 18-6-6 6-6"/></svg>
           Back to organs
         </button>
-        <div class="mb-4">
-          <p class="eyebrow text-xs font-bold uppercase tracking-[.18em] text-cyan-700 dark:text-cyan-300">Organ</p>
-          <div class="mt-1 flex flex-wrap items-center gap-3">
-            <h2 id="organViewTitle" class="text-2xl font-bold text-slate-900 dark:text-white"></h2>
-            <span id="organViewCount" class="whitespace-nowrap rounded-full bg-cyan-100 px-3 py-1 text-xs font-bold text-cyan-800 dark:bg-cyan-500/15 dark:text-cyan-200"></span>
+        <div class="mb-4 flex items-center gap-4">
+          <span id="organViewIcon" class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl text-3xl shadow-pop"></span>
+          <div>
+            <p class="eyebrow text-xs font-bold uppercase tracking-[.18em] text-cyan-700 dark:text-cyan-300">Organ</p>
+            <div class="mt-1 flex flex-wrap items-center gap-3">
+              <h2 id="organViewTitle" class="text-2xl font-bold text-slate-900 dark:text-white"></h2>
+              <span id="organViewCount" class="whitespace-nowrap rounded-full px-3 py-1 text-xs font-bold" style="background:color-mix(in srgb, var(--accent) 15%, white); color:var(--accent)"></span>
+            </div>
           </div>
         </div>
         <input id="panelFilterInput" type="search" placeholder="Filter panels in this organ..." class="mb-4 h-10 w-full max-w-md rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-slate-700 dark:bg-slate-900 dark:text-white" />
@@ -185,7 +194,7 @@
       </section>
 
       <section id="diseaseView" class="hidden">
-        <button id="backToOrgan" type="button" class="mb-4 inline-flex items-center gap-1 text-sm font-semibold text-cyan-700 hover:text-cyan-900 dark:text-cyan-300">
+        <button id="backToOrgan" type="button" class="accent-link mb-4 inline-flex items-center gap-1 text-sm font-semibold">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="m15 18-6-6 6-6"/></svg>
           Back to panels
         </button>
@@ -197,7 +206,7 @@
               <p id="detailMethod" class="mt-2 text-sm text-slate-600 dark:text-slate-400"></p>
             </div>
             <div class="flex shrink-0 gap-2">
-              <button id="copyDisease" type="button" class="icon-btn flex h-9 w-9 items-center justify-center rounded-full bg-cyan-600 text-white hover:bg-cyan-700" title="Copy panel name">
+              <button id="copyDisease" type="button" class="icon-btn is-primary flex h-9 w-9 items-center justify-center rounded-full" title="Copy panel name">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
               </button>
               <button id="copyGenes" type="button" class="icon-btn flex h-9 w-9 items-center justify-center rounded-full border border-cyan-200 text-cyan-800 hover:border-cyan-400 hover:bg-cyan-50 dark:border-cyan-800 dark:text-cyan-200 dark:hover:bg-slate-800" title="Copy genes">
@@ -211,16 +220,16 @@
 
           <div class="mt-6 grid gap-4 sm:grid-cols-3">
             <div class="stat-card relative overflow-hidden rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-14 w-14 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2a5 5 0 0 0-5 5v3H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-2V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3Z"/></svg>
-              <p class="text-xs font-bold uppercase text-cyan-700 dark:text-cyan-300">Organs</p><p id="statOrgans" class="mt-1 text-2xl font-bold text-slate-900 dark:text-white"></p>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-14 w-14 text-rose-500/10 dark:text-rose-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2a5 5 0 0 0-5 5v3H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-2V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3Z"/></svg>
+              <p class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Organs</p><p id="statOrgans" class="mt-1 text-2xl font-extrabold text-rose-500 dark:text-rose-400"></p>
             </div>
             <div class="stat-card relative overflow-hidden rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-14 w-14 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm0 5h6M9 12h6M9 16h3"/></svg>
-              <p class="text-xs font-bold uppercase text-cyan-700 dark:text-cyan-300">Panels</p><p id="statDiseases" class="mt-1 text-2xl font-bold text-slate-900 dark:text-white"></p>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-14 w-14 text-amber-500/10 dark:text-amber-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm0 5h6M9 12h6M9 16h3"/></svg>
+              <p class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Panels</p><p id="statDiseases" class="mt-1 text-2xl font-extrabold text-amber-500 dark:text-amber-400"></p>
             </div>
             <div class="stat-card relative overflow-hidden rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-14 w-14 text-cyan-600/10 dark:text-cyan-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12c2-4 5-6 8-6s6 2 8 6c-2 4-5 6-8 6s-6-2-8-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
-              <p class="text-xs font-bold uppercase text-cyan-700 dark:text-cyan-300">Genes in View</p><p id="statGenes" class="mt-1 text-2xl font-bold text-slate-900 dark:text-white"></p>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="stat-icon absolute -right-2 -top-2 h-14 w-14 text-violet-500/10 dark:text-violet-300/10"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12c2-4 5-6 8-6s6 2 8 6c-2 4-5 6-8 6s-6-2-8-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+              <p class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400">Genes in View</p><p id="statGenes" class="mt-1 text-2xl font-extrabold text-violet-500 dark:text-violet-400"></p>
             </div>
           </div>
 
@@ -5365,6 +5374,10 @@
     function renderOrganView() {
       const organ = selectedOrgan();
       if (!organ) return;
+      const c = organColor(organ.id);
+      $('organView').style.setProperty('--accent', c.hex);
+      $('organViewIcon').style.setProperty('background', `color-mix(in srgb, ${c.hex} 15%, white)`);
+      $('organViewIcon').textContent = organIcon(organ.id);
       $('organViewTitle').textContent = organ.title;
       const filterQuery = normalize(state.panelFilter);
       const diseases = organ.diseases
@@ -5375,7 +5388,7 @@
         const gCount = geneList(d.genes).length;
         return `<button type="button" class="panel-card flex h-full flex-col rounded-xl border border-slate-200 bg-white p-4 text-left dark:border-slate-800 dark:bg-slate-900" data-disease="${escapeHtml(d.id)}">
           <span class="block text-sm font-bold leading-snug text-slate-900 dark:text-white">${escapeHtml(d.name)}</span>
-          <span class="mt-auto flex items-center gap-2 pt-2 text-xs text-slate-500 dark:text-slate-400"><span class="rounded-full bg-cyan-100 px-2 py-0.5 font-bold text-cyan-800 dark:bg-cyan-500/15 dark:text-cyan-200">${gCount} genes</span>${escapeHtml(d.method || 'Method not listed')}</span>
+          <span class="mt-auto flex items-center gap-2 pt-2 text-xs text-slate-500 dark:text-slate-400"><span class="rounded-full px-2 py-0.5 font-bold" style="background:color-mix(in srgb, var(--accent) 15%, white); color:var(--accent)">${gCount} genes</span>${escapeHtml(d.method || 'Method not listed')}</span>
         </button>`;
       }).join('') || `<p class="col-span-full rounded-xl border border-dashed border-slate-300 p-6 text-center text-sm text-slate-500 dark:border-slate-700">No panels match this search.</p>`;
       document.querySelectorAll('#diseaseGrid [data-disease]').forEach(btn => {
@@ -5394,6 +5407,7 @@
       const organ = selectedOrgan();
       const disease = selectedDisease();
       if (!organ || !disease) return;
+      $('diseaseView').style.setProperty('--accent', organColor(organ.id).hex);
       const genes = geneList(disease.genes);
       $('detailTitle').textContent = disease.name;
       $('detailMethod').textContent = `Method: ${disease.method || 'Not listed'} - Source: ${organ.source}`;
