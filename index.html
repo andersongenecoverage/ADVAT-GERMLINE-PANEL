@@ -52,11 +52,6 @@
     @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
     .animate-in { animation: fadeSlideIn .3s ease both; }
 
-    .nav-card { position: relative; transition: border-color .15s ease, background-color .15s ease; }
-    .nav-card.is-active { background-color: #ecfeff; }
-    .dark .nav-card.is-active { background-color: rgba(8, 145, 178, .14); }
-    .nav-card.is-active::before { content: ''; position: absolute; left: -1px; top: 8px; bottom: 8px; width: 3px; border-radius: 3px; background: #0891b2; }
-
     .panel-card { transition: border-color .15s ease, background-color .15s ease; }
     .panel-card:hover { border-color: #a5f3fc; }
 
@@ -75,8 +70,6 @@
     .moon-icon { display: none; }
     .dark .moon-icon { display: inline-flex; }
 
-    #organList::-webkit-scrollbar, #diseaseList::-webkit-scrollbar { width: 6px; }
-
     .eyebrow { position: relative; padding-left: 13px; }
     .eyebrow::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 6px; height: 6px; border-radius: 9999px; background: #0891b2; }
   </style>
@@ -86,9 +79,6 @@
   <div class="min-h-screen">
     <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur dark:border-slate-800 dark:bg-slate-950/95">
       <div class="flex min-h-16 items-center gap-3 px-4 sm:px-6 lg:px-8">
-        <button id="mobileMenu" class="icon-btn inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-600 lg:hidden dark:border-slate-700 dark:text-slate-300" aria-label="Open organ navigation">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" class="h-5 w-5"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-        </button>
         <div class="flex items-center gap-3 min-w-0">
           <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-cyan-600 text-sm font-bold text-white">AD</div>
           <div class="min-w-0">
@@ -107,57 +97,67 @@
           </button>
         </div>
       </div>
-      <div class="border-t border-cyan-100 px-4 py-3 md:hidden dark:border-slate-800">
+      <div class="border-t border-slate-200 px-4 py-3 md:hidden dark:border-slate-800">
         <label class="relative block">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-cyan-600 dark:text-cyan-300"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-          <input id="mobileSearch" type="search" placeholder="Search organs, diseases, genes, methods..." class="h-11 w-full rounded-xl border border-cyan-100 bg-cyan-50/60 pl-11 pr-4 text-sm dark:border-slate-700 dark:bg-slate-900" />
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="mobileSearch" type="search" placeholder="Search organs, diseases, genes, methods..." class="h-11 w-full rounded-lg border border-slate-200 bg-slate-50 pl-11 pr-4 text-sm dark:border-slate-700 dark:bg-slate-900" />
         </label>
       </div>
     </header>
 
-    <div id="mainGrid" class="grid lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-3 lg:p-3">
-      <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-80 -translate-x-full overflow-y-auto border-r border-cyan-100 bg-white p-4 pt-20 shadow-2xl transition lg:sticky lg:top-[4.75rem] lg:z-20 lg:h-[calc(100vh-5.5rem)] lg:w-auto lg:translate-x-0 lg:rounded-2xl lg:border lg:pt-4 lg:shadow-soft dark:border-slate-800 dark:bg-slate-950">
-        <div class="mb-4 flex items-center justify-between">
-          <div>
-            <p class="text-xs font-bold uppercase tracking-[.18em] text-cyan-700 dark:text-cyan-300">Organs</p>
-            <p id="organCount" class="text-sm text-slate-500 dark:text-slate-400"></p>
+    <main class="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
+      <nav class="mb-6 flex flex-wrap items-center gap-2 text-sm text-slate-500 dark:text-slate-400" aria-label="Breadcrumb">
+        <button id="crumbHome" class="font-semibold text-cyan-700 hover:text-cyan-900 dark:text-cyan-300">Home</button>
+        <span id="crumbSepOrgan" class="hidden">/</span>
+        <button id="crumbOrganBtn" class="hidden font-semibold text-cyan-700 hover:text-cyan-900 dark:text-cyan-300"></button>
+        <span id="crumbSepDisease" class="hidden">/</span>
+        <span id="crumbDisease" class="hidden font-semibold text-slate-800 dark:text-slate-100"></span>
+      </nav>
+
+      <section id="homeView">
+        <div class="mb-6 grid gap-4 sm:grid-cols-3">
+          <div class="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+            <p class="text-xs font-bold uppercase tracking-[.16em] text-slate-500 dark:text-slate-400">Total Organs</p>
+            <p id="homeStatOrgans" class="mt-2 text-3xl font-bold text-cyan-600 dark:text-cyan-400"></p>
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Organ systems covered</p>
           </div>
-          <button id="closeSidebar" class="icon-btn rounded-lg border border-cyan-100 px-3 py-2 text-sm lg:hidden dark:border-slate-700">Close</button>
+          <div class="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+            <p class="text-xs font-bold uppercase tracking-[.16em] text-slate-500 dark:text-slate-400">Disease Panels</p>
+            <p id="homeStatPanels" class="mt-2 text-3xl font-bold text-cyan-600 dark:text-cyan-400"></p>
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Clinical gene panels</p>
+          </div>
+          <div class="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+            <p class="text-xs font-bold uppercase tracking-[.16em] text-slate-500 dark:text-slate-400">Total Genes</p>
+            <p id="homeStatGenes" class="mt-2 text-3xl font-bold text-cyan-600 dark:text-cyan-400"></p>
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Unique curated genes</p>
+          </div>
         </div>
-        <nav id="organList" class="space-y-1.5" aria-label="Organs"></nav>
-      </aside>
 
-      <main class="min-w-0 p-4 sm:p-6 lg:p-8">
-        <nav class="mb-5 flex flex-wrap items-center gap-2 text-sm text-slate-500 dark:text-slate-400" aria-label="Breadcrumb">
-          <button class="font-semibold text-cyan-700 hover:text-cyan-900 dark:text-cyan-300" data-reset>Dashboard</button>
-          <span>/</span><span id="crumbOrgan" class="font-semibold text-slate-800 dark:text-slate-100"></span>
-        </nav>
-
-        <section id="fertilityPanelsSection" class="animate-in mb-6 rounded-2xl border border-cyan-100 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-slate-900">
+        <section class="animate-in mb-6 rounded-2xl border border-cyan-100 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-slate-900">
           <div class="mb-4 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p class="eyebrow text-xs font-bold uppercase tracking-[.18em] text-cyan-700 dark:text-cyan-300">Fertility</p>
               <h2 class="mt-1 text-xl font-bold">Fertility Panels</h2>
             </div>
-            <p class="text-sm text-slate-500 dark:text-slate-400">Jump to reproductive and fertility gene panels.</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">Jump straight to reproductive and fertility gene panels.</p>
           </div>
           <div class="grid gap-3 sm:grid-cols-2">
-            <button type="button" class="panel-card group rounded-xl border border-cyan-100 bg-cyan-50/70 p-4 text-left hover:border-cyan-300 hover:bg-cyan-100/70 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-cyan-700" onclick="setSelection('reproductive','reproductive-male-infertility')">
+            <button type="button" class="panel-card group rounded-xl border border-cyan-100 bg-cyan-50/70 p-4 text-left hover:border-cyan-300 hover:bg-cyan-100/70 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-cyan-700" onclick="goDisease('reproductive','reproductive-male-infertility')">
               <p class="text-xs font-bold uppercase tracking-[.16em] text-cyan-700 dark:text-cyan-300">Male</p>
               <h3 class="mt-2 text-base font-bold text-slate-900 dark:text-white">Male Infertility Gene Panel</h3>
               <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">1,108 genes - Exome sequencing</p>
             </button>
-            <button type="button" class="panel-card group rounded-xl border border-cyan-100 bg-cyan-50/70 p-4 text-left hover:border-cyan-300 hover:bg-cyan-100/70 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-cyan-700" onclick="setSelection('reproductive','reproductive-male-polymorphism')">
+            <button type="button" class="panel-card group rounded-xl border border-cyan-100 bg-cyan-50/70 p-4 text-left hover:border-cyan-300 hover:bg-cyan-100/70 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-cyan-700" onclick="goDisease('reproductive','reproductive-male-polymorphism')">
               <p class="text-xs font-bold uppercase tracking-[.16em] text-cyan-700 dark:text-cyan-300">Male</p>
               <h3 class="mt-2 text-base font-bold text-slate-900 dark:text-white">Male Polymorphism Genes</h3>
               <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">115 genes - Exome sequencing</p>
             </button>
-            <button type="button" class="panel-card group rounded-xl border border-cyan-100 bg-cyan-50/70 p-4 text-left hover:border-cyan-300 hover:bg-cyan-100/70 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-cyan-700" onclick="setSelection('reproductive','reproductive-female-infertility')">
+            <button type="button" class="panel-card group rounded-xl border border-cyan-100 bg-cyan-50/70 p-4 text-left hover:border-cyan-300 hover:bg-cyan-100/70 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-cyan-700" onclick="goDisease('reproductive','reproductive-female-infertility')">
               <p class="text-xs font-bold uppercase tracking-[.16em] text-cyan-700 dark:text-cyan-300">Female</p>
               <h3 class="mt-2 text-base font-bold text-slate-900 dark:text-white">Female Infertility Gene Panel</h3>
               <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">844 genes - Exome sequencing</p>
             </button>
-            <button type="button" class="panel-card group rounded-xl border border-cyan-100 bg-cyan-50/70 p-4 text-left hover:border-cyan-300 hover:bg-cyan-100/70 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-cyan-700" onclick="setSelection('reproductive','reproductive-female-polymorphism')">
+            <button type="button" class="panel-card group rounded-xl border border-cyan-100 bg-cyan-50/70 p-4 text-left hover:border-cyan-300 hover:bg-cyan-100/70 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-cyan-700" onclick="goDisease('reproductive','reproductive-female-polymorphism')">
               <p class="text-xs font-bold uppercase tracking-[.16em] text-cyan-700 dark:text-cyan-300">Female</p>
               <h3 class="mt-2 text-base font-bold text-slate-900 dark:text-white">Female Polymorphism Genes</h3>
               <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">30 genes - Exome sequencing</p>
@@ -165,7 +165,32 @@
           </div>
         </section>
 
-        <section id="diseaseDetailsSection" class="animate-in rounded-2xl border border-cyan-100 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-slate-900">
+        <div class="mb-4">
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Explore by Organ System</h2>
+          <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Select an organ to view its associated disease panels.</p>
+        </div>
+        <div id="organGrid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></div>
+      </section>
+
+      <section id="organView" class="hidden">
+        <div class="mb-4 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p class="eyebrow text-xs font-bold uppercase tracking-[.18em] text-cyan-700 dark:text-cyan-300">Organ</p>
+            <h2 id="organViewTitle" class="mt-1 text-2xl font-bold text-slate-900 dark:text-white"></h2>
+            <p id="organViewMeta" class="mt-1 text-sm text-slate-500 dark:text-slate-400"></p>
+          </div>
+          <span id="organViewCount" class="whitespace-nowrap rounded-full bg-cyan-100 px-3 py-1 text-xs font-bold text-cyan-800 dark:bg-cyan-500/15 dark:text-cyan-200"></span>
+        </div>
+        <input id="panelFilterInput" type="search" placeholder="Filter panels in this organ..." class="mb-4 h-10 w-full max-w-md rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-slate-700 dark:bg-slate-900 dark:text-white" />
+        <div id="diseaseGrid" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3"></div>
+      </section>
+
+      <section id="diseaseView" class="hidden">
+        <button id="backToOrgan" type="button" class="mb-4 inline-flex items-center gap-1 text-sm font-semibold text-cyan-700 hover:text-cyan-900 dark:text-cyan-300">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="m15 18-6-6 6-6"/></svg>
+          Back to panels
+        </button>
+        <div id="diseaseDetailsSection" class="animate-in rounded-2xl border border-cyan-100 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-slate-900">
           <div class="flex justify-end gap-2">
             <button id="copyDisease" type="button" class="icon-btn flex h-9 w-9 items-center justify-center rounded-full bg-cyan-600 text-white hover:bg-cyan-700" title="Copy panel name">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
@@ -212,25 +237,9 @@
               <tbody id="detailTable"></tbody>
             </table>
           </div>
-        </section>
-
-        <section class="animate-in mt-6 rounded-2xl border border-cyan-100 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-slate-900">
-          <div class="mb-4 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p class="eyebrow text-xs font-bold uppercase tracking-[.18em] text-cyan-700 dark:text-cyan-300">Organ Table</p>
-              <h2 id="organTableTitle" class="mt-1 text-xl font-bold"></h2>
-            </div>
-            <p class="text-sm text-slate-500 dark:text-slate-400">Filtered by the current search.</p>
-          </div>
-          <div class="table-wrap max-h-[36rem] overflow-auto rounded-xl border border-cyan-100 dark:border-slate-800">
-            <table class="responsive-table bg-white text-sm dark:bg-slate-900">
-              <thead class="sticky top-0 z-10"><tr><th>Panel</th><th>Genes Involved</th><th>Method</th></tr></thead>
-              <tbody id="organTable"></tbody>
-            </table>
-          </div>
-        </section>
-      </main>
-    </div>
+        </div>
+      </section>
+    </main>
   </div>
 
   <script id="dashboard-data" type="application/json">
@@ -5169,7 +5178,7 @@
   <script>
     // ---------- Data & State ----------
     const DATA = JSON.parse(document.getElementById('dashboard-data').textContent);
-    const state = { organId: DATA[0]?.id, diseaseId: DATA[0]?.diseases[0]?.id, query: '', organInfoOpen: localStorage.getItem('medical-dashboard-organinfo') === 'open', panelFilter: '' };
+    const state = { view: 'home', organId: DATA[0]?.id, diseaseId: DATA[0]?.diseases[0]?.id, query: '', panelFilter: '' };
     const $ = (id) => document.getElementById(id);
 
     // ---------- Utilities ----------
@@ -5189,6 +5198,9 @@
       }
       return unique;
     };
+
+    const TOTAL_UNIQUE_GENES = new Set();
+    DATA.forEach(o => o.diseases.forEach(d => geneList(d.genes).forEach(g => TOTAL_UNIQUE_GENES.add(g.toUpperCase()))));
 
     const selectedOrgan = () => DATA.find(o => o.id === state.organId) || DATA[0];
     const selectedDisease = () => {
@@ -5269,16 +5281,24 @@
     }
 
     // ---------- Navigation ----------
-    function setSelection(organId, diseaseId) {
-      if (organId !== state.organId) {
-        state.panelFilter = '';
-        const filterInput = $('panelFilterInput');
-        if (filterInput) filterInput.value = '';
-      }
+    function goHome() {
+      state.view = 'home';
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function goOrgan(organId) {
+      state.view = 'organ';
+      state.organId = organId;
+      state.panelFilter = '';
+      $('panelFilterInput').value = '';
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function goDisease(organId, diseaseId) {
+      state.view = 'disease';
       state.organId = organId;
       const organ = selectedOrgan();
       state.diseaseId = diseaseId || organ.diseases[0]?.id;
-      $('sidebar').classList.add('-translate-x-full');
       render();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -5291,80 +5311,59 @@
     };
     const organIcon = (id) => ORGAN_ICONS[id] || '🧬';
 
-    function renderOrgans() {
-      const groups = filteredOrgans();
-      $('organCount').textContent = `${DATA.length} organs / ${DATA.reduce((s, o) => s + o.diseases.length, 0)} panels`;
-      $('organList').innerHTML = groups.map(o => {
-        const active = o.id === state.organId;
-        const infoIcon = active ? `
-          <button type="button" class="organ-info-toggle icon-btn absolute right-2 top-2 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-white/80 text-cyan-700 shadow-sm hover:bg-white dark:bg-slate-950/70 dark:text-cyan-300 dark:hover:bg-slate-950" data-organ-info-toggle title="Organ info" aria-expanded="${state.organInfoOpen ? 'true' : 'false'}">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4.5M12 8h.01"/></svg>
-          </button>` : '';
-        const infoBlock = active ? `
-          <div class="${state.organInfoOpen ? '' : 'hidden'} mx-1 mb-1 mt-1 rounded-lg border border-cyan-100 bg-cyan-50/70 p-2.5 text-xs text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400">
-            ${escapeHtml(o.heading)} - Source: ${escapeHtml(o.source)}
-          </div>` : '';
-        const panelsBlock = active ? `
-          <div class="mx-1 mb-1 mt-2 rounded-lg border border-slate-200 bg-slate-50 p-2 dark:border-slate-700 dark:bg-slate-900/60">
-            <div class="mb-2 flex items-center justify-between px-0.5">
-              <span class="text-[11px] font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">Panels</span>
-              <span id="diseaseCount" class="rounded-full bg-cyan-100 px-2 py-0.5 text-[11px] font-bold text-cyan-800 dark:bg-cyan-500/15 dark:text-cyan-200"></span>
-            </div>
-            <input id="panelFilterInput" type="search" placeholder="Filter panels..." value="${escapeHtml(state.panelFilter)}" class="mb-2 h-8 w-full rounded-md border border-slate-200 bg-white px-2.5 text-xs text-slate-900 placeholder:text-slate-400 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-white" />
-            <div id="diseaseList" class="max-h-[45vh] space-y-1.5 overflow-y-auto"></div>
-          </div>` : '';
-        return `<div class="relative">
-          <button class="nav-card ${active ? 'is-active' : ''} flex w-full items-center gap-3 rounded-xl border px-3 py-3 ${active ? 'pr-9' : ''} text-left ${active ? 'border-cyan-400 bg-cyan-50 text-cyan-950 dark:border-cyan-500 dark:bg-cyan-500/15 dark:text-white' : 'border-transparent hover:border-cyan-100 hover:bg-cyan-50/70 dark:hover:border-slate-700 dark:hover:bg-slate-900'}" data-organ="${escapeHtml(o.id)}">
-            <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-lg ${active ? 'bg-white/70 dark:bg-slate-950/60' : 'bg-cyan-50 dark:bg-slate-900'}">${organIcon(o.id)}</span>
-            <span class="min-w-0">
-              <span class="block truncate font-bold">${escapeHtml(o.title)}</span><span class="mt-0.5 block text-xs text-slate-500 dark:text-slate-400">${o.diseases.length} matching panels</span>
-            </span>
-          </button>
-          ${infoIcon}
-          ${infoBlock}
-          ${panelsBlock}
-        </div>`;
-      }).join('') || `<p class="rounded-xl border border-dashed border-cyan-200 p-4 text-sm text-slate-500 dark:border-slate-700">No organs match the search.</p>`;
-      document.querySelectorAll('[data-organ]').forEach(btn => {
-        btn.addEventListener('click', () => setSelection(btn.dataset.organ));
-      });
-      const infoToggle = document.querySelector('[data-organ-info-toggle]');
-      if (infoToggle) {
-        infoToggle.addEventListener('click', () => {
-          state.organInfoOpen = !state.organInfoOpen;
-          localStorage.setItem('medical-dashboard-organinfo', state.organInfoOpen ? 'open' : 'closed');
-          renderOrgans();
-        });
-      }
-      const filterInput = document.getElementById('panelFilterInput');
-      if (filterInput) {
-        filterInput.addEventListener('input', e => {
-          state.panelFilter = e.target.value;
-          renderDiseases();
-        });
-      }
+    function showView(view) {
+      $('homeView').classList.toggle('hidden', view !== 'home');
+      $('organView').classList.toggle('hidden', view !== 'organ');
+      $('diseaseView').classList.toggle('hidden', view !== 'disease');
     }
 
-    function renderDiseases() {
+    function updateBreadcrumb() {
+      const showOrgan = state.view === 'organ' || state.view === 'disease';
+      const showDisease = state.view === 'disease';
+      $('crumbSepOrgan').classList.toggle('hidden', !showOrgan);
+      $('crumbOrganBtn').classList.toggle('hidden', !showOrgan);
+      $('crumbSepDisease').classList.toggle('hidden', !showDisease);
+      $('crumbDisease').classList.toggle('hidden', !showDisease);
+      if (showOrgan) $('crumbOrganBtn').textContent = selectedOrgan().title;
+      if (showDisease) { const d = selectedDisease(); $('crumbDisease').textContent = d ? d.name : ''; }
+    }
+
+    function renderHomeView() {
+      $('homeStatOrgans').textContent = DATA.length;
+      $('homeStatPanels').textContent = DATA.reduce((s, o) => s + o.diseases.length, 0);
+      $('homeStatGenes').textContent = TOTAL_UNIQUE_GENES.size;
+
+      const groups = filteredOrgans();
+      $('organGrid').innerHTML = groups.map(o => `
+        <button type="button" class="panel-card rounded-xl border border-slate-200 bg-white p-5 text-left hover:border-cyan-300 dark:border-slate-800 dark:bg-slate-900" data-organ="${escapeHtml(o.id)}">
+          <span class="flex h-11 w-11 items-center justify-center rounded-lg bg-cyan-50 text-xl dark:bg-slate-800">${organIcon(o.id)}</span>
+          <h3 class="mt-3 font-bold text-slate-900 dark:text-white">${escapeHtml(o.title)}</h3>
+          <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">${o.diseases.length} panels</p>
+        </button>`).join('') || `<p class="col-span-full rounded-xl border border-dashed border-slate-300 p-6 text-center text-sm text-slate-500 dark:border-slate-700">No organs match your search.</p>`;
+      document.querySelectorAll('#organGrid [data-organ]').forEach(btn => {
+        btn.addEventListener('click', () => goOrgan(btn.dataset.organ));
+      });
+    }
+
+    function renderOrganView() {
       const organ = selectedOrgan();
+      if (!organ) return;
+      $('organViewTitle').textContent = organ.title;
+      $('organViewMeta').textContent = `${organ.heading} - Source: ${organ.source}`;
       const filterQuery = normalize(state.panelFilter);
       const diseases = organ.diseases
         .filter(d => matches(organ, d, state.query))
         .filter(d => !filterQuery || normalize(d.name).includes(filterQuery));
-      $('diseaseCount').textContent = `${diseases.length} of ${organ.diseases.length}`;
-      $('diseaseList').innerHTML = diseases.map(d => {
-        const active = d.id === state.diseaseId;
+      $('organViewCount').textContent = `${diseases.length} of ${organ.diseases.length} panels`;
+      $('diseaseGrid').innerHTML = diseases.map(d => {
         const gCount = geneList(d.genes).length;
-        return `<button class="panel-card ${active ? 'is-active' : ''} w-full rounded-xl border px-3 py-3 text-left ${active ? 'border-cyan-400 bg-cyan-50 dark:border-cyan-500 dark:bg-cyan-500/15' : 'border-slate-100 bg-white hover:border-cyan-200 hover:bg-cyan-50/60 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-cyan-800'}" data-disease="${escapeHtml(d.id)}">
-          <span class="block text-sm font-bold leading-snug">${escapeHtml(d.name)}</span>
+        return `<button type="button" class="panel-card rounded-xl border border-slate-200 bg-white p-4 text-left hover:border-cyan-300 dark:border-slate-800 dark:bg-slate-900" data-disease="${escapeHtml(d.id)}">
+          <span class="block text-sm font-bold leading-snug text-slate-900 dark:text-white">${escapeHtml(d.name)}</span>
           <span class="mt-2 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400"><span class="rounded-full bg-cyan-100 px-2 py-0.5 font-bold text-cyan-800 dark:bg-cyan-500/15 dark:text-cyan-200">${gCount} genes</span>${escapeHtml(d.method || 'Method not listed')}</span>
         </button>`;
-      }).join('') || `<p class="rounded-xl border border-dashed border-cyan-200 p-4 text-sm text-slate-500 dark:border-slate-700">No panels match this search for ${escapeHtml(organ.title)}.</p>`;
-      if (diseases.length && !diseases.some(d => d.id === state.diseaseId)) {
-        state.diseaseId = diseases[0].id;
-      }
-      document.querySelectorAll('[data-disease]').forEach(btn => {
-        btn.addEventListener('click', () => setSelection(state.organId, btn.dataset.disease));
+      }).join('') || `<p class="col-span-full rounded-xl border border-dashed border-slate-300 p-6 text-center text-sm text-slate-500 dark:border-slate-700">No panels match this search.</p>`;
+      document.querySelectorAll('#diseaseGrid [data-disease]').forEach(btn => {
+        btn.addEventListener('click', () => goDisease(state.organId, btn.dataset.disease));
       });
     }
 
@@ -5375,12 +5374,11 @@
       return `<tr><td data-label="Panel" class="font-semibold text-slate-900 dark:text-slate-100">${escapeHtml(d.name)}</td><td data-label="Genes">${genes}</td><td data-label="Method" class="text-slate-600 dark:text-slate-300">${escapeHtml(d.method || '-')}</td></tr>`;
     }
 
-    function renderDetails() {
+    function renderDiseaseView() {
       const organ = selectedOrgan();
       const disease = selectedDisease();
       if (!organ || !disease) return;
       const genes = geneList(disease.genes);
-      $('crumbOrgan').textContent = organ.title;
       $('detailTitle').textContent = disease.name;
       $('detailMethod').textContent = `Method: ${disease.method || 'Not listed'} - Source: ${organ.source}`;
       $('statOrgans').textContent = DATA.length;
@@ -5390,26 +5388,17 @@
         `<button class="gene-chip rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200" title="Copy ${escapeHtml(g)}" data-copy="${escapeHtml(g)}">${escapeHtml(g)}</button>`
       ).join('') || '<p class="text-sm text-slate-500">No genes listed.</p>';
       $('detailTable').innerHTML = rowHtml(disease, false);
-      $('organTableTitle').textContent = `${organ.title} gene panels`;
-      $('organTable').innerHTML = organ.diseases.filter(d => matches(organ, d, state.query)).map(d => rowHtml(d, true)).join('');
 
-      // Attach copy handlers to all gene chips
       document.querySelectorAll('[data-copy]').forEach(btn => {
         btn.addEventListener('click', () => copyText(btn.dataset.copy, `Copied gene: ${btn.dataset.copy}`));
       });
 
-      // Button handlers
       $('copyDisease').onclick = () => copyText(disease.name, 'Copied panel name');
       $('copyGenes').onclick = () => {
         const allGenes = geneList(disease.genes);
         copyText(allGenes.join('\n'), `Copied ${allGenes.length} genes`);
       };
       $('downloadGenes').onclick = () => downloadGenesCsv(organ, disease);
-    }
-
-    function renderFertilityPanels() {
-      const organ = selectedOrgan();
-      $('fertilityPanelsSection').classList.toggle('hidden', organ.id !== 'reproductive');
     }
 
     function replayAnimation(el) {
@@ -5420,30 +5409,35 @@
     }
 
     function render() {
-      renderOrgans(); renderDiseases(); renderDetails(); renderFertilityPanels();
-      replayAnimation($('diseaseDetailsSection'));
+      showView(state.view);
+      updateBreadcrumb();
+      if (state.view === 'home') renderHomeView();
+      else if (state.view === 'organ') renderOrganView();
+      else if (state.view === 'disease') renderDiseaseView();
+      const activeEl = state.view === 'home' ? $('homeView') : state.view === 'organ' ? $('organView') : $('diseaseView');
+      replayAnimation(activeEl);
     }
 
     function updateSearch(value) {
       state.query = normalize(value).trim();
-      const groups = filteredOrgans();
-      if (groups.length && !groups.some(o => o.id === state.organId)) {
-        state.organId = groups[0].id;
-        state.diseaseId = groups[0].diseases[0]?.id;
-      }
+      state.view = 'home';
       render();
     }
 
     // ---------- Event Listeners ----------
     $('globalSearch').addEventListener('input', e => { $('mobileSearch').value = e.target.value; updateSearch(e.target.value); });
     $('mobileSearch').addEventListener('input', e => { $('globalSearch').value = e.target.value; updateSearch(e.target.value); });
-    $('mobileMenu').addEventListener('click', () => $('sidebar').classList.remove('-translate-x-full'));
-    $('closeSidebar').addEventListener('click', () => $('sidebar').classList.add('-translate-x-full'));
-    document.querySelector('[data-reset]').addEventListener('click', () => {
+    $('crumbHome').addEventListener('click', () => {
       $('globalSearch').value = '';
       $('mobileSearch').value = '';
       state.query = '';
-      setSelection(DATA[0].id, DATA[0].diseases[0].id);
+      goHome();
+    });
+    $('crumbOrganBtn').addEventListener('click', () => goOrgan(state.organId));
+    $('backToOrgan').addEventListener('click', () => goOrgan(state.organId));
+    $('panelFilterInput').addEventListener('input', e => {
+      state.panelFilter = e.target.value;
+      renderOrganView();
     });
     $('darkToggle').addEventListener('click', () => {
       document.documentElement.classList.toggle('dark');
