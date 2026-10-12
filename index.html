@@ -5506,7 +5506,7 @@
       $('copyDisease').onclick = () => copyText(disease.name, 'Copied panel name');
       $('copyGenes').onclick = () => {
         const allGenes = geneList(disease.genes);
-        copyText(allGenes.join('\n'), `Copied ${allGenes.length} genes`);
+        copyText(allGenes.join(', '),`Copied ${allGenes.length} genes`);
       };
       $('downloadGenes').onclick = () => downloadGenesCsv(organ, disease);
     }
