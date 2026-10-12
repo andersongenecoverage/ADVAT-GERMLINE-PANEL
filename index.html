@@ -151,7 +151,7 @@
       </div>
     </header>
 
-    <main class="w-full p-4 sm:p-6 lg:px-10 lg:py-8 2xl:px-16">
+    <main class="w-full p-4 sm:p-6 lg:px-8 lg:py-8">
       <nav id="breadcrumbNav" class="mb-6 flex flex-wrap items-center gap-2 text-sm text-slate-500 dark:text-slate-400" aria-label="Breadcrumb">
         <button id="crumbHome" class="font-semibold text-cyan-700 hover:text-cyan-900 dark:text-cyan-300">Home</button>
       </nav>
@@ -188,7 +188,7 @@
           <h2 class="mt-1 text-2xl font-bold text-slate-900 dark:text-white">Explore by Organ System</h2>
           <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Select an organ to view its associated disease panels.</p>
         </div>
-        <div id="organGrid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6"></div>
+        <div id="organGrid" class="grid gap-4" style="grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))"></div>
       </section>
 
       <section id="organView" class="hidden">
@@ -207,7 +207,7 @@
           </div>
         </div>
         <input id="panelFilterInput" type="search" placeholder="Filter panels in this organ..." class="mb-4 h-10 w-full max-w-md rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-slate-700 dark:bg-slate-900 dark:text-white" />
-        <div id="diseaseGrid" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"></div>
+        <div id="diseaseGrid" class="grid gap-3" style="grid-template-columns:repeat(auto-fill,minmax(19rem,1fr))"></div>
       </section>
 
       <section id="diseaseView" class="hidden">
