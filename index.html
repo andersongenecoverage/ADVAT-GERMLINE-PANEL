@@ -5501,7 +5501,7 @@
       const genes = geneList(disease.genes);
       $('detailTitle').textContent = disease.name;
       $('crumbOrgan').textContent = organ.title;
-      $('crumbPanel').textContent = disease.name;
+      $('crumbPanel').textContent = disease.name.replace(/\s*\(\s*[\d,]+\s*genes?\s*\)\s*$/i, '');
       $('pillGenes').textContent = `${genes.length} ${genes.length === 1 ? 'gene' : 'genes'}`;
       $('pillMethod').textContent = disease.method || 'Method not listed';
       $('pillOrgan').textContent = `Organ: ${organ.title}`;
