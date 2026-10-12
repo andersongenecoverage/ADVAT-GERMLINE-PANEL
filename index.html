@@ -5344,6 +5344,17 @@
       }, 1500);
     }
 
+    // Manual selection (drag / Ctrl+A / Ctrl+C) over the gene chips: copy as comma-separated.
+    document.addEventListener('copy', (e) => {
+      const sel = window.getSelection();
+      const box = $('geneChips');
+      if (!sel || sel.isCollapsed || !box || !box.contains(sel.anchorNode) || !box.contains(sel.focusNode)) return;
+      const genes = sel.toString().split(/[\s,]+/).filter(Boolean);
+      if (!genes.length) return;
+      e.clipboardData.setData('text/plain', genes.join(', '));
+      e.preventDefault();
+    });
+
     // ---------- Copy Text ----------
     function copyText(text, label) {
       const fallback = () => {
