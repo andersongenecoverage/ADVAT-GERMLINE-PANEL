@@ -179,15 +179,16 @@
           </div>
         </div>
 
-        <label class="relative mb-6 block">
+        <div class="mb-4 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p class="eyebrow text-xs font-bold uppercase tracking-[.18em] text-cyan-700 dark:text-cyan-300">Browse</p>
+            <h2 class="mt-1 text-2xl font-bold text-slate-900 dark:text-white">Explore by Organ System</h2>
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Select an organ to view its associated disease panels.</p>
+          </div>
+          <label class="relative block w-full sm:w-96">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-          <input id="globalSearch" type="search" placeholder="Search organs, diseases, genes, methods..." class="h-11 w-full rounded-lg border border-slate-200 bg-slate-50 pl-10 pr-4 text-sm text-slate-900 placeholder:text-slate-400 transition focus:border-cyan-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:border-cyan-500" />
+          <input id="globalSearch" type="search" placeholder="Search organs, diseases, genes, methods..." class="h-11 w-full rounded-lg border border-slate-200 bg-white pl-10 pr-4 text-sm text-slate-900 placeholder:text-slate-400 transition focus:border-cyan-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:border-cyan-500" />
         </label>
-
-        <div class="mb-4">
-          <p class="eyebrow text-xs font-bold uppercase tracking-[.18em] text-cyan-700 dark:text-cyan-300">Browse</p>
-          <h2 class="mt-1 text-2xl font-bold text-slate-900 dark:text-white">Explore by Organ System</h2>
-          <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Select an organ to view its associated disease panels.</p>
         </div>
         <div id="organGrid" class="grid gap-4" style="grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))"></div>
       </section>
