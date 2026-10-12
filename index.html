@@ -151,7 +151,7 @@
       </div>
     </header>
 
-    <main class="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
+    <main class="w-full p-4 sm:p-6 lg:px-10 lg:py-8 2xl:px-16">
       <nav id="breadcrumbNav" class="mb-6 flex flex-wrap items-center gap-2 text-sm text-slate-500 dark:text-slate-400" aria-label="Breadcrumb">
         <button id="crumbHome" class="font-semibold text-cyan-700 hover:text-cyan-900 dark:text-cyan-300">Home</button>
       </nav>
@@ -188,7 +188,7 @@
           <h2 class="mt-1 text-2xl font-bold text-slate-900 dark:text-white">Explore by Organ System</h2>
           <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Select an organ to view its associated disease panels.</p>
         </div>
-        <div id="organGrid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></div>
+        <div id="organGrid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6"></div>
       </section>
 
       <section id="organView" class="hidden">
@@ -207,7 +207,7 @@
           </div>
         </div>
         <input id="panelFilterInput" type="search" placeholder="Filter panels in this organ..." class="mb-4 h-10 w-full max-w-md rounded-lg border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 dark:border-slate-700 dark:bg-slate-900 dark:text-white" />
-        <div id="diseaseGrid" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3"></div>
+        <div id="diseaseGrid" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"></div>
       </section>
 
       <section id="diseaseView" class="hidden">
@@ -227,7 +227,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
               </button>
               <button id="copyGenes" type="button" class="icon-btn flex h-9 w-9 items-center justify-center rounded-full border border-cyan-200 text-cyan-800 hover:border-cyan-400 hover:bg-cyan-50 dark:border-cyan-800 dark:text-cyan-200 dark:hover:bg-slate-800" title="Copy genes">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="M20 6 9 17l-5-5"/><path d="M14 6h6M14 10h4"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M4 16V5a1 1 0 0 1 1-1h11"/><path d="M12 13h5M12 17h5"/></svg>
               </button>
               <button id="downloadGenes" type="button" class="icon-btn flex h-9 w-9 items-center justify-center rounded-full border border-cyan-200 text-cyan-800 hover:border-cyan-400 hover:bg-cyan-50 dark:border-slate-800 dark:text-cyan-200 dark:hover:bg-slate-800" title="Download CSV">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
@@ -867,7 +867,7 @@
             },
             {
                 "id": "endocrinology-12",
-                "name": "Congenital Generalized Lipodystrophy Type \u00bd (2 genes)",
+                "name": "Congenital Generalized Lipodystrophy Type ½ (2 genes)",
                 "genes": "AGPAT2, BSCL2",
                 "method": "Exome sequencing"
             },
@@ -1203,7 +1203,7 @@
             },
             {
                 "id": "endocrinology-68",
-                "name": "Wolfram Syndrome and Alstr\u00f6m Syndrome (2 genes)",
+                "name": "Wolfram Syndrome and Alström Syndrome (2 genes)",
                 "genes": "CISD2, WFS1, ALMS1",
                 "method": "Exome sequencing"
             },
@@ -1706,7 +1706,7 @@
             {
                 "id": "hearing-16",
                 "name": "Loeys-Dietz Syndrome (6 genes)",
-                "genes": "FBN1, SMAD3, TGFB2, TGFB3, TGFBR1, TGFBR2\ufffd",
+                "genes": "FBN1, SMAD3, TGFB2, TGFB3, TGFBR1, TGFBR2�",
                 "method": "Exome sequencing"
             },
             {
@@ -1784,7 +1784,7 @@
             {
                 "id": "hearing-29",
                 "name": "Treacher Collins and Related Disorders (9 genes)",
-                "genes": "DHODH, EDNRA, EFTUD2, POLR1A, POLR1B, POLR1C, POLR1D, SF3B4, TCOF1\ufffd",
+                "genes": "DHODH, EDNRA, EFTUD2, POLR1A, POLR1B, POLR1C, POLR1D, SF3B4, TCOF1�",
                 "method": "Exome sequencing"
             },
             {
@@ -1796,7 +1796,7 @@
             {
                 "id": "hearing-31",
                 "name": "Waardenburg Syndrome (8 Genes)",
-                "genes": "EDN3, EDNRB, KIT, KITLG, MITF, PAX3, SNAI2, SOX10\ufffd",
+                "genes": "EDN3, EDNRB, KIT, KITLG, MITF, PAX3, SNAI2, SOX10�",
                 "method": "Exome sequencing"
             },
             {
@@ -2225,7 +2225,7 @@
             },
             {
                 "id": "liver-11",
-                "name": "Crigler\u2010Najjar syndrome(1gene)",
+                "name": "Crigler‐Najjar syndrome(1gene)",
                 "genes": "UGT1A1",
                 "method": "Exome Sequencing"
             },
@@ -2660,7 +2660,7 @@
             {
                 "id": "lung-35",
                 "name": "Whole Exome Sequencing",
-                "genes": "Covering all the coding regions (\u205324383)",
+                "genes": "Covering all the coding regions (⁓24383)",
                 "method": "WES"
             },
             {
@@ -3239,7 +3239,7 @@
             },
             {
                 "id": "neuro-5",
-                "name": "Aicardi-Gouti\u00e8res syndrome gene panel (7 genes)",
+                "name": "Aicardi-Goutières syndrome gene panel (7 genes)",
                 "genes": "ADAR, IFIH1, RNASEH2A, RNASEH2B, RNASEH2C, SAMHD1, TREX1",
                 "method": "Exome sequencing"
             },
@@ -3257,7 +3257,7 @@
             },
             {
                 "id": "neuro-8",
-                "name": "Alzheimer\u2019s Disease and Dementia (41 genes)",
+                "name": "Alzheimer’s Disease and Dementia (41 genes)",
                 "genes": "A2M, ACE, ANG, ALS2, APP, CHCHD10, CHMP2B, CSF1R, CYP2D6, DCTN1, CHMP2B, FUS, GBA, GPX1, GRN, HNRNPA2B1, MAPT, MATR3, MPO, NOTCH3, OPTN, PFN1, PRNP, PRPH, PSEN1, PSEN2, SETX, SQSTM1, SLC52A3, SNCA, SOD1, SPG11, SQSTM1, TAF15, TARDBP, TBK1, TREM2, TYROBP, TUBA4A, UBQLN2, VAPB, VCP, APOE",
                 "method": "Exome sequencing"
             },
@@ -3323,7 +3323,7 @@
             },
             {
                 "id": "neuro-19",
-                "name": "Brown Vialetto\u2013Van Laere syndrome (2 genes)",
+                "name": "Brown Vialetto–Van Laere syndrome (2 genes)",
                 "genes": "PRRT2, SCN2A, SCN8A, CHRNA2, KCNQ2",
                 "method": "Exome sequencing"
             },
@@ -5200,8 +5200,95 @@
                 "method": "Exome sequencing"
             }
         ]
+    },
+    {
+        "id": "newborn",
+        "title": "New Born",
+        "source": "newborn.html",
+        "heading": "Disease and gene associated with New Born",
+        "diseases": [
+            {
+                "id": "newborn-1",
+                "name": "Cardiac disorders (30 genes)",
+                "genes": "22q11.2 region, ABCC6, ACTA2, BRAF, CACNA1C, CASQ2, ENPP1, KCNH2, KCNQ1, KDM6A, KMT2D, KRAS, LPL, LZTR1, MAP2K1, Monosomy X, MRAS, NRAS, PPA2, PRKAR1A, PTPN11, RAF1, RIT1, RRAS2, RYR2, SCN5A, SOS1, SOS2, TECRL, Trisomy 21",
+                "method": "Newborn genomic screening"
+            },
+            {
+                "id": "newborn-2",
+                "name": "Dermatologic disorders (2 genes)",
+                "genes": "POLH, XPC",
+                "method": "Newborn genomic screening"
+            },
+            {
+                "id": "newborn-3",
+                "name": "Endocrine disorders (132 genes)",
+                "genes": "AAAS, ABCC8, AGPAT2, ANOS1, AQP2, ATRX, AVP, AVPR2, BMP1, BMP4, BSCL2, CACNA1D, CASR, CAV1, CAVIN1, CDON, CLCN2, COL1A1, COL1A2, CUL3, CYP11A1, CYP17A1, CYP24A1, CYP27A1, CYP2R1, DHH, DHX37, DMP1, DUOXA2, EIF2AK3, EIF2S3, FAM111A, FGF23, FGFR1, FGFR3, FKBP10, FOXA2, FOXE1, GALNT3, GATA3, GATA6, GCK, GCM2, GHR, GLI2, GLI3, GLIS3, GLUD1, GNA11, HESX1, HSD11B2, HSD3B2, IER3IP1, IFITM5, IGF1, IGSF1, INS, IRS4, IYD, KCNJ11, KCNJ5, KDELR2, KLHL3, LEP, LEPR, LHX3, LHX4, LRP5, MAMLD1, MAP3K1, MC2R, MESD, MRAP, MYRF, NEUROG3, NKX2-1, NNT, NR0B1, NR3C2, NR5A1, OTX2, PAX8, PCSK1, PDX1, PHEX, PLS3, PNPLA6, POMC, POU1F1, PPP2R3C, PROK2, PROKR2, PROP1, PTF1A, PTH, RAX, RFX6, RNPC3, ROBO1, SCNN1A, SCNN1B, SCNN1G, SERPINF1, SERPINH1, SHH, SLC19A2, SLC2A2, SLC34A1, SLC34A3, SLC5A5, SOX2, SOX9, SPARC, SRY, STAR, TBC1D32, TBCE, TBL1X, TBX19, TG, TGIF1, THRA, TMEM38B, TNFRSF11B, TPO, TRHR, TSHB, TSHR, VDR, WNK1, WNT1, ZFP57",
+                "method": "Newborn genomic screening"
+            },
+            {
+                "id": "newborn-4",
+                "name": "Gastrointestinal disorders (22 genes)",
+                "genes": "ACTG2, AKR1D1, APOB, BAAT, CYP7B1, DGAT1, EPCAM, GPIHBP1, GUCY2C, HSD3B7, JAG1, LCT, MTTP, MYO5B, NOTCH2, PLVAP, SAR1B, SI, SLC26A3, SLC5A1, SLC9A3, UGT1A1",
+                "method": "Newborn genomic screening"
+            },
+            {
+                "id": "newborn-5",
+                "name": "Hearing loss disorders (13 genes)",
+                "genes": "ADGRV1, CDH23, CIB2, CLRN1, GJB2, MYO7A, OTOF, PCDH15, SLC26A4, USH1C, USH1G, USH2A, WHRN",
+                "method": "Newborn genomic screening"
+            },
+            {
+                "id": "newborn-6",
+                "name": "Hematologic disorders (42 genes)",
+                "genes": "ALAS2, AMN, CUBN, F10, F11, F12, F13A1, F13B, F2, F5, F7, F8, F9, FECH, FGA, FGB, FGG, G6PD, GATA1, GGCX, GP1BA, GP1BB, GP9, HBB, ITGA2B, ITGB3, PKLR, RPL11, RPL15, RPL26, RPL35A, RPL5, RPS10, RPS19, RPS24, RPS26, RPS29, RPS7, SLC25A38, TF, UROD, UROS",
+                "method": "Newborn genomic screening"
+            },
+            {
+                "id": "newborn-7",
+                "name": "Hereditary cancer predisposition syndromes (19 genes)",
+                "genes": "ALK, APC, CTR9, DICER1, GPC3, HRAS, MLH1, MSH2, MSH6, NF1, OFD1, PTCH1, RB1, RET, SMARCB1, SUFU, TP53, VHL, WT1",
+                "method": "Newborn genomic screening"
+            },
+            {
+                "id": "newborn-8",
+                "name": "Inborn errors of immunity (272 genes)",
+                "genes": "ACD, ACP5, ADA, ADA2, ADAM17, ADAMTS13, AICDA, AIRE, AK2, ANKRD17, AP3B1, AP3D1, ARPC1B, ATM, ATP6AP1, ATP6AP2, BCL10, BCL11B, BLNK, BTK, C1QA, C1QB, C1QC, C2, C3, C5, C6, C7, C8A, C8B, C9, CARD11, CARD9, CARMIL2, CBLB, CCBE1, CD27, CD3D, CD3E, CD3G, CD40, CD40LG, CD55, CD59, CD70, CD79A, CD79B, CDC42, CDCA7, CEBPE, CFD, CFP, CHD7, CHUK, CIITA, CLCN7, CLPB, COPA, CORO1A, CSF3R, CTC1, CTLA4, CTPS1, CTSC, CXCR4, CYBA, CYBB, CYBC1, DCLRE1C, DEF6, DGKE, DIAPH1, DKC1, DNAJC21, DNASE1L3, DNMT3B, DOCK11, DOCK2, DOCK8, EFL1, ELANE, ELF4, EPG5, EXTL3, FADD, FAS, FASLG, FCHO1, FERMT3, FNIP1, FOXN1, FOXP3, G6PC3, GATA2, HAX1, IFNAR1, IFNAR2, IFNGR1, IFNGR2, IGLL1, IKBKB, IKZF1, IL10RA, IL10RB, IL12B, IL12RB1, IL17RA, IL17RC, IL1RN, IL2RA, IL2RB, IL2RG, IL36RN, IL6R, IL6ST, IL7R, IRAK4, IRF4, IRF8, ISG15, ITCH, ITGB2, ITK, ITPR3, JAGN1, JAK1, JAK3, LACC1, LAT, LCK, LCP2, LIG1, LIG4, LPIN2, LRBA, LYST, MADD, MALT1, MCM4, MECOM, MEFV, MOGS, MPL, MSN, MTHFD1, MVK, MYD88, MYSM1, NBAS, NBEAL2, NBN, NCF2, NCF4, NCKAP1L, NFKBIA, NHEJ1, NLRC4, NLRP12, NLRP3, NOD2, NSMCE3, OAS1, ORAI1, OSTM1, OTULIN, PARN, PAX1, PEPD, PGM3, PI4KA, PIK3CD, PIK3R1, PLCG2, PNP, POLA1, POLE, POMP, PRF1, PRIM1, PRKCD, PRKDC, PSMB8, PSMC3, PSMC5, PSTPIP1, PTPN2, PTPRC, RAB27A, RAC2, RAG1, RAG2, RANBP2, RASGRP1, RBCK1, RBM8A, RECQL4, RELA, RELB, RFX5, RFXANK, RFXAP, RIPK1, RMRP, RNF168, RNF31, RPSA, RTEL1, SAMD9, SAMD9L, SGPL1, SH2B3, SH2D1A, SKIC2, SKIC3, SLC29A3, SLC35C1, SLC37A4, SLC39A7, SLC46A1, SLC7A7, SMARCD2, SNX10, SP110, SPI1, SPINK5, SRP54, STAT1, STAT2, STAT3, STAT5B, STAT6, STIM1, STING1, STK4, STX11, STXBP2, TAFAZZIN, TAP1, TAP2, TBK1, TBX1, TCIRG1, TCN2, TERT, TFRC, THBD, THPO, TINF2, TLR7, TNFAIP3, TNFRSF11A, TNFRSF1A, TNFSF11, TOP2B, TPP2, TRNT1, TYK2, UNC13D, UNG, USB1, USP18, VPS13B, VPS45, WAS, WDR1, WIPF1, WRAP53, XIAP, ZAP70, ZBTB24, ZNF341, ZNFX1",
+                "method": "Newborn genomic screening"
+            },
+            {
+                "id": "newborn-9",
+                "name": "Inherited metabolic disorders (146 genes)",
+                "genes": "ABCD4, ACAD9, ACADM, ACADVL, ACAT1, ADK, AGL, AHCY, ALDH4A1, ALDH7A1, ALDOB, AMT, AP1S1, APRT, ARG1, ARSA, ARSB, ASL, ASS1, ATP7A, BCKDHA, BCKDHB, BCKDK, BTD, CA5A, CBLIF, CBS, COQ2, COQ4, COQ6, COQ7, COQ8A, COQ9, CPS1, CPT1A, CPT2, DBT, DDC, DHFR, DLAT, DLD, DNAJC12, ECHS1, ETFA, ETFB, ETFDH, ETHE1, FAH, FBP1, FLAD1, FUCA1, FUT8, G6PC1, GAA, GALC, GALK1, GALM, GALNS, GALT, GAMT, GATM, GCDH, GCH1, GLDC, GOT2, GUSB, GYS2, HADH, HADHA, HADHB, HIBCH, HLCS, HMGCL, HPD, IDS, IDUA, IVD, LIPA, LMBRD1, MAN2B1, MCCC1, MCCC2, MCEE, MLYCD, MMAA, MMAB, MMACHC, MMADHC, MMUT, MOCS1, MPI, MTHFR, MTR, MTRR, NAGS, NANS, NPC1, NPC2, OAT, ODC1, OTC, OXCT1, PAH, PC, PCBD1, PCCA, PCCB, PCK1, PDHA1, PDHB, PDHX, PDP1, PDSS1, PDSS2, PGM1, PHGDH, PHKA2, PHKB, PHKG2, PLPBP, PNPO, POLG, PRDX1, PTS, PYGL, QDPR, RYR1, SLC19A3, SLC22A5, SLC25A13, SLC25A15, SLC25A20, SLC35A2, SLC39A14, SLC39A4, SLC39A8, SLC6A8, TAT, TK2, TMEM165, TMEM70, TPK1, TRMU, TRPM6, UMPS, UQCRC2",
+                "method": "Newborn genomic screening"
+            },
+            {
+                "id": "newborn-10",
+                "name": "Neurologic disorders (48 genes)",
+                "genes": "ABCD1, AGRN, ALG14, ALG2, CAD, CHAT, CHRNA1, CHRNB1, CHRND, CHRNE, COL13A1, COLQ, DMD, DOK7, DPAGT1, FOLR1, GFPT1, GLRA1, GLRB, GMPPB, KCNQ2, KCNQ3, MUSK, PLEC, PREPL, PRRT2, RAPSN, SCN1A, SCN8A, SLC13A5, SLC18A3, SLC25A1, SLC2A1, SLC52A2, SLC52A3, SLC5A6, SLC5A7, SLC6A5, SMN1, SPR, STXBP1, SYT2, TH, TPP1, TSC1, TSC2, TTPA, VAMP1",
+                "method": "Newborn genomic screening"
+            },
+            {
+                "id": "newborn-11",
+                "name": "Ophthalmologic disorders (2 genes)",
+                "genes": "PLG, RPE65",
+                "method": "Newborn genomic screening"
+            },
+            {
+                "id": "newborn-12",
+                "name": "Pulmonary disorders (2 genes)",
+                "genes": "CFTR, SFTPC",
+                "method": "Newborn genomic screening"
+            },
+            {
+                "id": "newborn-13",
+                "name": "Renal disorders (16 genes)",
+                "genes": "AGXT, ATP6V0A4, ATP6V1B1, BSND, CLCNKB, COQ8B, CTNS, GRHPR, HOGA1, KCNJ1, MAGED2, NPHS1, SLC12A1, SLC12A3, SLC4A1, WDR72",
+                "method": "Newborn genomic screening"
+            }
+        ]
     }
-]</script>
+]
+  </script>
   <script>
     // ---------- Data & State ----------
     const DATA = JSON.parse(document.getElementById('dashboard-data').textContent);
@@ -5334,7 +5421,7 @@
     const ORGAN_ICONS = {
       cancer: '🎗️', cardio: '❤️', dental: '🦷', endocrinology: '🧪', eyes: '👁️',
       hearing: '👂', immune: '🛡️', liver: '🧫', lung: '🫁', muscularskeletal: '🦴',
-      neuro: '🧠', pharma: '💊', renal: '🫘', skin: '🩹', reproductive: '👶', ces: '🧬'
+      neuro: '🧠', pharma: '💊', renal: '🫘', skin: '🩹', reproductive: '👶', newborn: '🍼', ces: '🧬'
     };
     const organIcon = (id) => ORGAN_ICONS[id] || '🧬';
 
