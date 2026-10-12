@@ -5414,7 +5414,7 @@
 
     // ---------- Rendering ----------
     const ORGAN_FA = {"cancer": "ribbon", "cardio": "heart-pulse", "dental": "tooth", "endocrinology": "flask-vial", "eyes": "eye", "hearing": "ear-listen", "immune": "shield-virus", "liver": "vials", "lung": "lungs", "muscularskeletal": "bone", "neuro": "brain", "pharma": "pills", "renal": "droplet", "skin": "fingerprint", "reproductive": "person-pregnant", "ces": "dna", "Whole Exome Sequencing Panel gene": "dna"};
-    const ORGAN_IMAGES = { newborn: 'live-birth.png' };
+    const ORGAN_IMAGES = { newborn: 'live-birth.png', lung: 'lungs.svg' };
     const organIcon = (id) => ORGAN_IMAGES[id]
       ? `<img src="${ORGAN_IMAGES[id]}" alt="" class="h-full w-full object-contain p-0.5">`
       : `<i class="fa-solid fa-${ORGAN_FA[id] || 'dna'} text-cyan-600"></i>`;
