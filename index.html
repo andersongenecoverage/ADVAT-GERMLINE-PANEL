@@ -5421,9 +5421,12 @@
     const ORGAN_ICONS = {
       cancer: '🎗️', cardio: '❤️', dental: '🦷', endocrinology: '🧪', eyes: '👁️',
       hearing: '👂', immune: '🛡️', liver: '🧫', lung: '🫁', muscularskeletal: '🦴',
-      neuro: '🧠', pharma: '💊', renal: '🫘', skin: '🩹', reproductive: '👶', newborn: '🧸', ces: '🧬'
+      neuro: '🧠', pharma: '💊', renal: '🫘', skin: '🩹', reproductive: '👶', ces: '🧬'
     };
-    const organIcon = (id) => ORGAN_ICONS[id] || '🧬';
+    const ORGAN_IMAGES = { newborn: 'live-birth.png' };
+    const organIcon = (id) => ORGAN_IMAGES[id]
+      ? `<img src="${ORGAN_IMAGES[id]}" alt="" class="h-full w-full object-contain p-0.5">`
+      : (ORGAN_ICONS[id] || '🧬');
 
     // Single, consistent brand accent for every organ - keeps the UI calm and professional.
     const organColor = () => ({ name: 'cyan', hex: '#0891b2' });
@@ -5464,7 +5467,7 @@
       const c = organColor(organ.id);
       $('organView').style.setProperty('--accent', c.hex);
       $('organViewIcon').style.setProperty('background', `color-mix(in srgb, ${c.hex} 15%, white)`);
-      $('organViewIcon').textContent = organIcon(organ.id);
+      $('organViewIcon').innerHTML = organIcon(organ.id);
       $('organViewTitle').textContent = organ.title;
       const filterQuery = normalize(state.panelFilter);
       const diseases = organ.diseases
