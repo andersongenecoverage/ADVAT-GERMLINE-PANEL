@@ -5503,9 +5503,10 @@
       if (!organ || !disease) return;
       $('diseaseView').style.setProperty('--accent', organColor(organ.id).hex);
       const genes = geneList(disease.genes);
-      $('detailTitle').textContent = disease.name;
+      $('detailTitle').textContent = disease.name.replace(/\s*\(\s*[\d,]+\s*genes?\s*\)\s*$/i, '');
       $('crumbOrgan').textContent = organ.title;
-      $('crumbPanel').textContent = disease.name.replace(/\s*\(\s*[\d,]+\s*genes?\s*\)\s*$/i, '');
+      const cleanName = disease.name.replace(/\s*\(\s*[\d,]+\s*genes?\s*\)\s*$/i, '');
+      $('crumbPanel').textContent = cleanName;
       $('pillGenes').textContent = `${genes.length} ${genes.length === 1 ? 'gene' : 'genes'}`;
       $('pillMethod').textContent = disease.method || 'Method not listed';
       $('pillOrgan').textContent = `Organ: ${organ.title}`;
